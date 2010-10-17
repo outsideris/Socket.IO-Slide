@@ -1,0 +1,2073 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+     http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ 
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+                 Brad Neuberg
+-->
+<html manifest="cache.manifest">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
+  <title>HTML5 Presentation</title>
+  <link href="http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Sans+Mono" rel="stylesheet" type="text/css" />
+    <style>
+      body {
+        font: 16px "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0px; top: 0px;
+      }
+ 
+      .presentation {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        left: 0px;
+        top: 0px;
+        display: block;
+        overflow: hidden;
+        background: #778;
+      }
+      
+      .shadow  { text-shadow: rgba(0, 0, 0, 0.5) 0 4px 4px; }
+      .stroke  {
+                -webkit-text-fill-color: black;
+                -webkit-text-stroke-color: red;
+                -webkit-text-stroke-width: 1px;
+               }
+      
+      .slide p.giddyup { font-family:'GiddyUp Std'; font-size:2.0em;}
+       @font-face {
+                 font-family: 'GiddyUp Std';
+                 src: url(src/GiddyupStd.otf);
+       }
+       
+       .rounded
+       {     
+             border-radius:50px;
+             border-top-left-radius:150px;
+             border-bottom-left-radius:0px;
+             -webkit-transition-property: all;
+             -webkit-transition-duration: 1.5s;
+             height:55px;
+       }
+       
+       .rounded:hover
+       {
+             border-top-left-radius:50px;
+             border-bottom-left-radius:50px;
+             border-top-right-radius:150px;
+             border-bottom-right-radius:0px;
+       }
+ 
+        .sunlight { width:300px; border:solid 1px #000; padding:30px 30px 30px 50px;
+             background: -webkit-gradient(radial, 300 50, 0, 300 50, 100, from(yellow), to(#fff));
+        }
+        .sunlight li {padding:0px;margin:0px;line-height:18px;}
+ 
+        .sunlight.moonlight
+         {
+            -webkit-transition-property:all ;
+             -webkit-transition-duration:1.5s;
+         }
+ 
+         .sunlight.moonlight:hover
+         {
+             background: -webkit-gradient(radial, 300 20, 0, 300 20, 20, from(#fff), to(#000));
+             color:#fff;
+         }    
+         
+         canvas#bouncyball {border:solid 1px black;}   
+       
+        .windows-phone-7 {
+          background: url(src/HTC-HD3.jpg) center center no-repeat;
+          background-size: 100%;
+          width:140px;
+          height:165px;
+          -webkit-transition-property: width, height;
+          -webkit-transition-duration: 1s;
+        }
+ 
+       .windows-phone-7:hover {
+          width:280px;
+          height:330px;
+        }
+       
+      .slides {
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        position: absolute;
+        display: block;
+        -webkit-transition: -webkit-transform 1s ease-in-out;
+        -moz-transition: -moz-transform 1s ease-in-out;
+        -o-transition: -o-transform 1s ease-in-out;
+        transition: transform 1s ease-in-out;
+      }
+ 
+      .slide {
+        display: none;
+        position: absolute;
+        overflow: hidden;
+        width: 900px;
+        height: 700px;
+        left: 50%;
+        top: 50%;
+        margin-top: -350px;
+        background-color: #eee;
+        background: -webkit-gradient(linear, left bottom, left top, from(#bbd), to(#fff));
+        background: -moz-linear-gradient(bottom, #bbd, #fff);
+        background: linear-gradient(bottom, #bbd, #fff);
+        -webkit-transition: margin 0.25s ease-in-out;
+        -moz-transition: margin 0.25s ease-in-out;
+        -o-transition: margin 0.25s ease-in-out;
+        transition: margin 0.25s ease-in-out;
+      }
+ 
+      .slide:nth-child(even) {
+        -moz-border-radius: 20px 0;
+        -khtml-border-radius: 20px 0;
+        border-radius: 20px 0; /* includes Opera 10.5+ */
+        -webkit-border-top-left-radius: 20px;
+        -webkit-border-bottom-right-radius: 20px;
+      }
+ 
+      .slide:nth-child(odd) {
+        -moz-border-radius: 0 20px;
+        -khtml-border-radius: 0 20px;
+        border-radius: 0 20px;
+        -webkit-border-top-right-radius: 20px;
+        -webkit-border-bottom-left-radius: 20px;
+      }
+ 
+      .slide p, .slide textarea {
+        font-size: 20px;
+      }
+ 
+      .slide .counter {
+        color: #999999;
+        position: absolute;
+        left: 20px;
+        bottom: 20px;
+        display: block;
+        font-size: 12px;
+      }
+ 
+      .slide.title > .counter,
+      .slide.segue > .counter,
+      .slide.mainTitle > .counter {
+        display: none;
+      }
+ 
+      .force-render {
+        display: block;
+        visibility: hidden;
+      }
+      
+      .slide.far-past {
+        display: block;
+        margin-left: -2800px;
+      }
+      
+      .slide.past {
+        visibility: visible;
+        display: block;
+        margin-left: -1600px;
+      }
+      
+      .slide.current {
+        visibility: visible;
+        display: block;
+        margin-left: -450px;
+      }
+      
+      .slide.future {
+        visibility: visible;
+        display: block;
+        margin-left: 700px;
+      }
+      
+      .slide.far-future {
+        display: block;
+        margin-left: 1900px;
+      }
+ 
+      body.three-d div.presentation {
+        /*background: -webkit-gradient(radial, 50% 50%, 10, 50% 50%, 1000, from(#333), to(#000));        */
+      }
+      
+      body.three-d div.slides {
+        -webkit-transform: translateX(50px) scale(0.8) rotateY(10deg);
+        -moz-transform: translateX(50px) scale(0.8) rotateY(10deg);
+        -o-transform: translateX(50px) scale(0.8) rotateY(10deg);
+        transform: translateX(50px) scale(0.8) rotateY(10deg);
+      }
+      
+      /* Content */
+      /*
+        Font sizes:
+        header h1 - 50px
+        h2, p - 20px
+        default, pre, input - 16px
+      */
+      
+      @font-face { font-family: 'Junction'; src: url(src/Junction02.otf); }
+      @font-face { font-family: 'LeagueGothic'; src: url(src/LeagueGothic.otf); }
+      
+      header {
+        font-family: 'Droid Sans';
+        font-weight: normal;
+        letter-spacing: -.05em;
+        color: black;
+        text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+        position: absolute;
+        left: 30px;
+        top: 25px;
+        margin: 0;
+        padding: 0;
+        font-size: 50px;
+      }
+      
+      h1 {
+        font-size: 100%;
+        display: inline;
+      	font-weight: normal;
+      	padding: 0;
+      	margin: 0;
+		font-family: 'LeagueGothic';
+      }
+      
+      h2 {
+        font-family: 'Droid Sans';
+        color: black;
+        font-size: 20px;
+        padding: 0;
+        margin: 15px 0 5px 0;
+      }
+            
+      h2:first-child {
+        margin-top: 0;
+      }
+ 
+      section, footer {
+        font-family: 'Droid Sans';
+        color: #3f3f3f;
+        text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+        margin: 100px 30px 0;
+        display: block;
+        overflow: hidden;
+      }
+      
+      footer {
+        font-size: 12px;
+        margin: 20px 0 0 30px;
+      }
+ 
+      a {
+        color: inherit;
+        display: inline-block;
+        text-decoration: none;
+        line-height: 110%;
+        border-bottom: 2px solid #3f3f3f;
+      }
+ 
+      .gmap a {
+        line-height: 100%;
+        border-bottom: none;
+      }
+ 
+      li {
+        list-style: none;
+        padding: 10px 0;
+      }
+ 
+      button {
+        font-size: 20px;
+      }
+      
+      pre button {
+        margin: 2px;
+      }
+      
+      .summary {
+        font-size: 30px;
+      }
+ 
+      .bullets {
+        font-size: 40px;
+      }
+      
+      section.left {
+        float: left;
+        width: 390px;
+      }
+      
+      section.small {
+        font-size: 24px;
+      }
+      
+      section.small ul {
+        margin: 0 0 0 15px;
+        padding: 0;
+      }
+      
+      section.small li {
+        padding-bottom: 0;
+      }
+            
+      section.middle {
+        line-height: 68px;
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+        height: 700px;
+        width: 900px;
+      }
+      
+      pre {
+        text-align: left;
+        font-family: 'Droid Sans Mono', Courier;        
+        padding: 10px 20px;
+        background: rgba(255, 0, 0, 0.05);
+        -webkit-border-radius: 8px;
+        -khtml-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 0, 0, 0.2);
+      }
+      
+      pre select {
+        font-family: Monaco, Courier;
+        border: 1px solid #c61800;
+      }
+        
+      input {
+        font-size: 16px;
+        margin-right: 10px;
+        font-family: Helvetica;
+        padding: 3px;
+      }
+      input[type="range"] {
+        width: 100%;
+      }
+      
+      button {
+        margin: 20px 10px 0 0;
+        font-family: Verdana;
+      }
+      
+      button.large {
+        font-size: 32px;
+      }
+        
+      pre b {
+        font-weight: normal;
+        color: #c61800;
+        text-shadow: #c61800 0 0 1px;
+        /*letter-spacing: -1px;*/
+      }
+      pre em {
+        font-weight: normal;
+        font-style: normal;
+        color: #18a600;
+        text-shadow: #18a600 0 0 1px;
+      }
+      pre input[type="range"] {
+        height: 6px;
+        cursor: pointer;
+        width: auto;
+      }
+      
+      div.example {
+        display: block;
+        padding: 10px 20px;
+        color: black;
+        background: rgba(255, 255, 255, 0.4);
+        -webkit-border-radius: 8px;
+        -khtml-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+      }
+      
+      video {
+        -moz-border-radius: 8px;
+        -khtml-border-radius: 8px;
+        -webkit-border-radius: 8px;
+        border-radius: 8px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+      }
+      
+      .css,
+      .js,
+      .html,
+      .key {
+        font-family: 'Droid Sans';
+        color: black;
+        display: inline-block;
+        padding: 6px 10px 3px 10px;
+        font-size: 25px;
+        line-height: 30px;
+        text-shadow: none;
+        letter-spacing: 0;
+        bottom: 10px;
+        position: relative;
+        -moz-border-radius: 10px;
+        -khtml-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+        background: white;
+        box-shadow: rgba(0, 0, 0, 0.1) 0 2px 5px;
+        -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0 2px 5px;
+        -moz-box-shadow: rgba(0, 0, 0, 0.1) 0 2px 5px;
+        -o-box-shadow: rgba(0, 0, 0, 0.1) 0 2px 5px;
+      }
+      
+      .key { font-family: Arial; }
+      
+      :not(header) > .css,
+      :not(header) > .js,
+      :not(header) > .html,
+      :not(header) > .key {
+        margin: 0 5px;
+        bottom: 4px;
+      }
+      
+      .css {
+        background: -webkit-gradient(linear, left top, left bottom, from(#ff4), to(#ffa));
+        background-color: #ff4;
+        background: -moz-linear-gradient(left top, #ff4, #ffa);
+      }
+      .js {
+        background: -webkit-gradient(linear, left top, left bottom, from(#4f4), to(#afa));
+        background-color: #4f4;
+        background: -moz-linear-gradient(left top, #4f4, #afa);
+      }
+      .html {
+        background: -webkit-gradient(linear, left top, left bottom, from(#e88), to(#fee));
+        background-color: #e88;
+        background: -moz-linear-gradient(left top, #e88, #fee);
+      }
+ 
+      .two-column {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+      }
+      
+      .summary li::before, .bullets li::before {
+        content: 'Â· ';
+      }
+ 
+      .stroke {
+        -webkit-text-stroke-color: red;
+        -webkit-text-stroke-width: 1px;
+      } /* currently webkit-only */
+      
+      .center {
+        text-align: center;
+      }
+      
+      .formula {
+        font-size: 50px;
+      }
+      
+      #presentation-counter {
+        color: #ccc;
+        font-size: 100px;
+        letter-spacing: 1px;
+        position: absolute;
+        top: 40%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+      }
+      
+      .hsl-value {
+        display: inline-block;
+        width: 50px;
+      }
+    </style>
+  
+  </head>
+  <body>
+    <div class="presentation">
+      <div id="presentation-counter">
+      </div>
+      <div class="slides">
+        <div class="slide">
+          <style>
+            .landing p {
+              font-size: 35px;
+            }
+            #disclaimer-message {
+              font-size: 20px;
+            }
+          </style>
+          
+          <section class="middle landing">
+            <p>This presentation is an HTML5 website</p>
+            <p>Press <span class="key">&rarr;</span> key to advance.</p>
+            <p>Zoom in/out: <span class="key">Ctrl or Command</span> + <span class="key">+/-</span></p>
+            <p>Slide framework created by google</p>
+          </section>
+        </div>
+        <div class="slide">
+          <style>
+            .intro h1, .intro h2 {
+              color: black;
+            }
+            .intro h1 {
+              letter-spacing: -2px;
+              font-size: 96px;
+            }
+            .intro h2 {
+              margin-top: -5px;
+              font-size: 40px;
+              letter-spacing: -1px;
+            }
+          </style>
+          
+          <section class="middle intro">
+            <hgroup>
+              <h1> HTML5* </h1>
+              <h2> Modern markup for the modern web. </h2>
+            </hgroup>
+            <p>*Including other next generation technologies of the Web Development stack</p>
+            <h2>Follow Along:</h2>
+            <h2><a href="http://bit.ly/aVWYaw" target="_blank">http://bit.ly/aVWYaw</a></h2>
+          </section>
+        </div>
+        <div class="slide">
+			<style>
+	            .emphasis h1, .emphasis h2 {
+	              color: black;
+	            }
+	            .emphasis h1 {
+	              letter-spacing: -2px;
+	              font-size: 96px;
+	            }
+	            .emphasis h2 {
+	              margin-top: -5px;
+	              font-size: 40px;
+	              letter-spacing: -1px;
+	            }
+	          </style>
+          
+          <section class="middle emphasis">
+            <h1>What is HTML5?</h1>
+            <section class="formula"> HTML5 ~= <span class="html">HTML</span> + <span class="css">CSS</span> + <span class="js">JS APIs</span>
+            </section>
+            <p>*Not just the markup language, but the whole web stack</p>
+          </div>
+          <div class="slide">
+            <section class="middle emphasis">
+              <h1>When will it be ready?</h1>
+              <h2>2022</h2>
+            </section>
+          </div>
+		<style>
+            .backgroundimage img {
+			  position: absolute;
+			  top: 0px;
+			  left: 0px;
+            }
+ 
+			.backgroundimage section {
+				z-index: 2;
+				position: absolute;
+				text-shadow: rgba(255, 255, 255, 0.8) 0 6px 14px;
+				top: 400px;
+			}
+          </style>
+          
+          <div class="slide backgroundimage">
+            <img src="src/sunrise.jpg" class="backgroundimage"></img>
+            <section class="middle emphasis">
+              <h1>It's still usable today!</h1>
+            </section>
+          </div>
+          <div class="slide">
+            <section class="middle emphasis">
+              <h1>HTML5 Markup Changes</h1>
+            </section>
+          </div>
+          <div class="slide">
+            <header><span class="html">HTML</span>
+              <h1>New DOCTYPE</h1>
+            </header>
+            <section>
+              <h2>Compare new:</h2>
+		         <pre>&lt;!DOCTYPE html&gt;</pre>
+               <br/>
+              <h2>To old:</h2>
+				<pre>&lt;DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+				   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;</pre>
+              
+            </section>
+          </div>
+		<style>
+            pre.half {
+			  width: 375px;
+			  float: left;
+            }
+		</style>
+          
+          <div class="slide">
+            <header><span class="html">HTML</span>
+              <h1>New semantic tags</h1>
+            </header>
+            <section>
+            <pre class="half">
+&lt;body&gt;
+  &lt;<b>header</b>&gt;
+    &lt;<b>hgroup</b>&gt;
+      &lt;h1&gt;Page title&lt;/h1&gt;
+      &lt;h2&gt;Page subtitle&lt;/h2&gt;
+    &lt;/hgroup&gt;
+  &lt;/header&gt;
+ 
+  &lt;<b>nav</b>&gt;
+   &lt;ul&gt;
+     Navigation...
+   &lt;/ul&gt;
+  &lt;/nav&gt;
+ 
+  &lt;<b>footer</b>&gt;
+   Copyright &copy; 2009.
+  &lt;/footer&gt;
+&lt;/body&gt;
+ 
+            </pre>
+			<pre class="half">
+&lt;body&gt;
+  &lt;<b>div class="header"</b>&gt;
+    &lt;<b>div</b>&gt;
+      &lt;h1&gt;Page title&lt;/h1&gt;
+      &lt;h2&gt;Page subtitle&lt;/h2&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+ 
+  &lt;<b>div class="navigation"</b>&gt;
+   &lt;ul&gt;
+     Navigation...
+   &lt;/ul&gt;
+  &lt;/div class="navigation"&gt;
+ 
+  &lt;<b>div class="footer"</b>&gt;
+   Copyright &copy; 2009.
+  &lt;/footer&gt;
+&lt;/body&gt;
+ 
+			</pre>
+              
+            </section>
+          </div>
+          
+          <style>
+          img.tags1 { height: 230px; }
+          img.tags2 { height: 420px; }
+          </style>
+          
+          <div class="slide">
+            <section class="middle">
+              <img src="src/tags1.png" class="tags1"></img>
+              <img src="src/tags2.png" class="tags2"></img>
+            </section>
+          </div>
+          
+          <div class="slide">
+            <header><span class="html">HTML</span>
+              <h1>New semantic tags</h1>
+            </header>
+            <section>
+            <pre class="half">
+&lt;<b>section</b>&gt;
+   &lt;<b>article</b>&gt;
+     &lt;<b>header</b>&gt;
+       &lt;h1&gt;Title&lt;/h1&gt;
+     &lt;/header&gt;
+     &lt;section&gt;
+       Content...
+     &lt;/section&gt;
+   &lt;/article&gt;
+ 
+   &lt;article&gt;
+     &lt;header&gt;
+       &lt;h1&gt;Title&lt;/h1&gt;
+     &lt;/header&gt;
+     &lt;section&gt;
+       Content...
+     &lt;/section&gt;
+   &lt;/article&gt;
+ 
+  &lt;<b>aside</b>&gt;
+   Top links...
+  &lt;/aside&gt;
+&lt;/section&gt;
+            </pre>
+              
+			<pre class="half">
+&lt;<b>span class="section"</b>&gt;
+   &lt;<b>span class="article"</b>&gt;
+     &lt;<b>span class="article-header"</b>&gt;
+       &lt;h1&gt;Title&lt;/h1&gt;
+     &lt;/span&gt;
+     &lt;span class="content"&gt;
+       Content...
+     &lt;/span&gt;
+   &lt;/span&gt;
+ 
+   &lt;span class="article"&gt;
+     &lt;span class="article-header"&gt;
+       &lt;h1&gt;Title&lt;/h1&gt;
+     &lt;/span&gt;
+     &lt;span class="content"&gt;
+       Content...
+     &lt;/span&gt;
+   &lt;/span&gt;
+ 
+  &lt;<b>span class="aside"</b>&gt;
+   Top links...
+  &lt;/span&gt;
+&lt;/span&gt;
+			</pre>
+              
+            </section>
+          </div>
+          
+          <style>
+          img.tags3 { height: 700px; }
+          </style>
+          
+          <div class="slide">
+            <section class="middle">
+              <img src="src/tags3.png" class="tags3"></img>
+            </section>
+          </div>
+
+          <div class = "slide">
+            <section class="middle emphasis">
+              <h1>Rich UI Updates</h1>
+            </section>
+          </div>
+          <div class = "slide">
+          <section class = "bulleted">
+            <ul>
+                <li>Audio / Video Elements </li>
+                <li>CSS3 Styles and Selectors</li>
+                <li>Canvas Element and Scalable Vector Graphics (SVG)</li>
+            </ul>
+            </section>
+          </div>
+          <div class = "slide">
+            <header>
+                <h1>Audio & Video</h1>
+            </header>
+            
+            <section>
+
+                <pre>&lt;h2&gt;New Divide - Linkin Park&lt;/h2&gt;<br />&lt;<b>audio</b> <b>src</b> = "src/New_Divide.ogg" <b>controls</b>&gt;&lt;/<b>audio</b>&gt;</pre>
+                
+                <h2>New Divide - Linkin Park</h2>
+                <audio src = "src/New_Divide.ogg" controls></audio>
+                
+                <pre>&lt;h2&gt;O3D - 3D Graphics API Demo Video&lt;/h2&gt;<br />&lt;<b>video</b> <b>src</b> = "http://www.youtube.com/demo/google_main.mp4" <b>controls</b> <b>autobuffer</b>/&gt;</pre>
+                <h2>O3D - 3D Graphics API Demo Video</h2>
+                <video src="http://www.youtube.com/demo/google_main.mp4"  controls autobuffer />
+            </section>
+          </div>
+          <div class = "slide">
+            <header>
+                <h1>CSS3</h1>
+            </header>
+
+            <section>
+                <pre>&lt;style&gt;<br />.shadow { <b>text-shadow: rgba(0, 0, 0, 0.5) 0 4px 4px;</b> } <br />&lt;/style&gt;<br /><br />&lt;p class = "shadow"&gt;Text with shadows&lt;/p&gt;</pre>
+                <p class = "shadow">Text with shadows</p>
+
+                <pre>&lt;style&gt;<br />.stroke<br />{<br />    <b>-webkit-text-fill-color: black;</b><br />    <b>-webkit-text-stroke-color: red;</b><br />    <b>-webkit-text-stroke-width: 1px;</b><br />}<br />&lt;/style&gt;<br /><br />&lt;p&gt;Add a &lt;span class = "stroke"&gt;stroke&lt;/span&gt; around your text&lt;/p&gt;</pre>
+                <p>Add a <span class = "stroke">stroke</span> around your text</p>
+            </section>
+          </div>
+
+           <div class = "slide">
+            <header>
+                <h1>CSS3 - Part 2</h1>
+            </header>
+            <section>
+             
+            <pre>&lt;style&gt;<br /><b>@font-face<br />{<br />    font-family: 'GiddyUp Std';<br />    src: url(src/GiddyupStd.otf);<br />}</b><br />.giddyup { font-family: 'GiddyUp Std'; }<br />&lt;/style&gt;<br /><br />&lt;p class = "giddyup"&gt;Embed your favorite fonts&lt;/p&gt;</pre>
+            <p class = "giddyup">Embed your favorite fonts</p>
+            </section>
+            </div>
+
+            <div class = "slide">
+                <header>
+                    <h1>CSS3 - Part 3</h1>
+                </header>
+             <section>
+ 
+
+                    <pre>&lt;style&gt;<br />.rounded {<br />    <b>border-top-left-radius:50px;  border-bottom-left-radius:50px;<br />    border-top-right-radius:150px;  border-bottom-right-radius:0px;</b>  }<br />.rounded<b>:hover</b> { <br />    <b>border-top-left-radius:50px; border-bottom-left-radius:50px;<br />    border-top-right-radius:150px; border-bottom-right-radius:0px;</b>  }<br />.sunlight {<br />    width:300px; border:solid 1px #000; padding:30px 30px 30px 50px;<br /><b>    background: -webkit-gradient(radial, 300 50, 0, 300 50, 150, from(yellow), <br />    to(#fff));</b>  }<br />&lt;/style&gt;<br /><br />&lt;ul class = "rounded sunlight"&gt;<br />    &lt;li&gt;rounded corners&lt;/li&gt;<br />    &lt;li&gt;radial gradient background&lt;/li&gt;<br />    &lt;li&gt;hover over effect using CSS3 transitions&lt;/li&gt;<br />&lt;/ul&gt;</pre>
+
+                    <ul class = "rounded sunlight">
+                        <li>rounded corners</li>
+                        <li>radial gradient background</li>
+                        <li>hover over effect using CSS3 transitions</li>
+                    </ul>
+                </section>
+            </div>
+            <div class = "slide">
+               <header>
+                    <h1>CSS3 - Part 4</h1>
+                </header>
+             <section>
+                <pre>&lt;style&gt;<br />.sunlight.moonlight<br />{<br />    <b>-webkit-transition-property:all;<br />    -webkit-transition-duration:1.5s;</b><br />}<br />.sunlight.moonlight:<b>hover</b><br />{<br />    <b>background:-webkit-gradient(radial,60 30,0,60 30,50, from(#fff), to(#000));</b><br />    color:#fff;<br />}<br />&lt;/style&gt;<br /><br />&lt;ul class = "sunlight moonlight"&gt;
+    &lt;li&gt;same sunlight class&lt;/li&gt;
+    &lt;li&gt;moonlight hover over effect&lt;/li&gt;
+&lt;/ul&gt;</pre>
+                <ul class = "sunlight moonlight">
+                    <li>same sunlight class</li>
+                    <li>moonlight hover over effect</li>
+                </ul>
+             </section>
+        </div>
+         <div class = "slide">
+               <header>
+                    <h1>CSS3 - Part 5</h1>
+                </header>
+             <section>
+  
+
+                <pre>&lt;style&gt;<br />.windows-phone-7  {<br />    background:url(src/HTC-HD3.jpg) center center no-repeat;<br /><b>    background-size:100%;<br />    -webkit-transition-property:width,height;<br />    -webkit-transition-duration:1s;</b><br />}<br />.windows-phone-7<b>:hover</b> { width:280px; height:330px; }<br />&lt;/style&gt;<br /><br />&lt;div class = "windows-phone-7"&gt;&lt;/div&gt;</pre>
+                <h2>Enlarge an image with a transition</h2>
+                <div style = "margin-left:250px;width:280px;height:280px;background-color:#fff;overflow:hidden;">
+                <div class = "windows-phone-7"></div>
+                </div>
+
+             </section>
+        </div>
+        <div class = "slide">
+            <header>
+                <h1>Canvas</h1>
+            </header>
+            <section>
+                <pre><b>&lt;canvas id = "shapes" width="300" height="300"&gt;&lt;/canvas&gt;</b><br />&lt;script&gt;
+    <b>var rectCanvas = document.querySelector("#shapes"); </b><span style="color:Green">/// Get canvas object</span>
+    <b>var ctx = rectCanvas.getContext("2d"); </b><span style="color:Green">/// Get reference to canvas context</span>
+    <b>ctx.fillStyle = "rgb(200,0,0)"; </b><span style="color:Green">/// Create a red rectangle</span>
+    <b>ctx.fillRect(10, 10, 55, 50);</b>
+    <span style="color:Green">///add more rectangles</span>
+    <b>ctx.beginPath(); </b><span style="color:Green">/// start path for circle</span>
+    <b>ctx.arc(200, 90, 75, 0, Math.PI * 2, true);
+    ctx.closePath();
+    ctx.fill();</b>
+&lt;/script&gt;</pre>
+                <h2>Use scalable vector graphics (SVG) on your the new canvas element</h2>
+                <canvas id="shapes" width="300" height="300"></canvas>
+
+                <script>
+                    var rectCanvas = document.querySelector("#shapes");
+                    var ctx = rectCanvas.getContext("2d");
+
+                    ctx.fillStyle = "rgb(200,0,0)";
+                    ctx.fillRect(10, 10, 55, 50);
+
+                    ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+                    ctx.fillRect(30, 30, 55, 50);
+
+                    ctx.fillStyle = "rgba(0, 200, 0, 0.5)";
+                    ctx.fillRect(50, 50, 55, 50);
+
+                    ctx.fillStyle = "rgba(0, 200, 200, 0.5)";
+                    ctx.fillRect(100, 100, 75, 75);
+
+                    ctx.fillStyle = "rgba(200, 0, 200, 0.5)";
+                    ctx.fillRect(150, 150, 100, 100);
+
+                    ctx.fillStyle = "rgba(200, 200, 0, 0.5)";
+                    ctx.beginPath();
+                    ctx.arc(200, 90, 75, 0, Math.PI * 2, true);
+                    ctx.closePath();
+                    ctx.fill();
+
+                </script>
+
+            </section>
+        </div>
+        <div class = "slide">
+            <header>
+                <h1>Canvas - Part 2</h1>
+            </header>
+            <section>
+            <pre><b>&lt;canvas id = "bouncyball" width="300" height="300"&gt;&lt;/canvas&gt;</b><br />
+&lt;script&gt;
+<span style = "color:Green">/// The javascript is a bit too long to fit here. 
+/// But, we will include in the demo code!</span>
+&lt;/script&gt;
+</pre>
+
+            <h2>Create animations in your canvas</h2>
+                <canvas id="bouncyball" width="300" height="300"></canvas>
+                <script>
+
+                    var x = 250;
+                    var y = 250;
+                    var dx = 2;
+                    var dy = 4;
+                    var ctx;
+                    var WIDTH;
+                    var HEIGHT;
+
+                    function circle(x, y, r) {
+                        ctx.beginPath();
+                        ctx.arc(x, y, r, 0, Math.PI * 2, true);
+                        ctx.closePath();
+                        ctx.fill();
+                    }
+
+                    function rect(x, y, w, h) {
+                        ctx.beginPath();
+                        ctx.rect(x, y, w, h);
+                        ctx.closePath();
+                        ctx.fill();
+                    }
+
+                    function clear() {
+                        ctx.clearRect(0, 0, WIDTH, HEIGHT);
+                    }
+
+                    function init() {
+                        var canvas = document.querySelector("#bouncyball");
+                        ctx = canvas.getContext("2d");
+                        WIDTH = canvas.getAttribute("width");
+                        HEIGHT = canvas.getAttribute("height");
+                        return setInterval(draw, 10);
+                    }
+
+                    function draw() {
+                        clear();
+                        circle(x, y, 20);
+
+                        if (x + dx > WIDTH || x + dx < 0)
+                            dx = -dx;
+                        if (y + dy > HEIGHT || y + dy < 0)
+                            dy = -dy;
+
+                        x += dx;
+                        y += dy;
+                    }
+
+
+                    init();
+
+                </script> 
+            </section>
+        </div>
+          <div class="slide">
+            <section class="middle emphasis">
+              <h1>Cool new stuff for web apps!</h1>
+            </section>
+          </div>
+          <div class="slide">
+			<style>
+		    	section.bulleted ul li {
+		          margin-top: -5px;
+		          font-size: 40px;
+		          letter-spacing: -1px;
+				  list-style: square;
+		        }
+		    </style>
+            
+            <section class="bulleted">
+              <ul>
+                <li>Cross Document Messaging</li>
+                <li>Local/Offline Web Storage</li>
+                <li>Geolocation</li>
+                <li>Web Sockets</li>
+              </ul>
+            </section>
+          </div>
+          
+          <div class="slide">
+            <header>
+              <h1>Cross Document Messaging</h1>
+            </header>
+            <section>
+            <p>Here is a specific scenario.  We need to access a Web Service.  We can't make an AJAX call directly because the Web Service is on another domain.</p>
+                <p>Instead we can <b>post a message</b> to a page running on the same domain as our Web Service and get our result.</p>
+                <h2>Client Code (http://edsiok.com)</h2>
+            <pre>
+&lt;iframe id="iframe1" src="http://davearlin.com/page.html" style="display:none"/&gt;
+&lt;input id = "name-text" type="text" valeu = "dave" /&gt;
+&lt;input type = "button" value = "Validate" onclick = "ValidateUser();" /&gt;
+&lt;script&gt;
+    var iframe = document.getElementById('iframe1').contentWindow;
+    function ValidateUser() {
+        var name = document.getElementById('name-text').value;
+        <b>iframe.postMessage(name, "http://davearlin.com/page.html");</b>
+    }
+    <b>window.addEventListener("message", function (e) {
+            if (e.data == 'true') { ShowValidMessage(); }
+            else { ShowInvalidMessage(); }
+        }, false);</b>
+&lt;/script&gt;
+            </pre>
+              <div style = "float:left">  
+              <input id = "name-text" type = "text" value = "dave"  /><input type = "button" value = "Validate" onclick = "ValidateUser();" />
+              </div>
+              <p id = "name-valid" style= "float:left; margin-top:2px;margin-left:10px;"></p>
+              <div style="clear:both;"></div>
+            </section>
+            <iframe id = "validationdomainiframe" src = "http://davearlin.com/TestAJAXSameDomain.aspx" style="display:none"></iframe>
+          </div>
+
+          <script>
+              var validationiframe;
+              window.onload = function () { validationiframe = document.getElementById('validationdomainiframe').contentWindow; }
+              function ValidateUser() {
+                  var name = document.getElementById('name-text').value;
+                  validationiframe.postMessage(name, "http://davearlin.com/TestAJAXSameDomain.aspx"); //
+              }
+
+              window.addEventListener("message",
+                function (e) {
+                    if (e.data == 'true') {
+                        document.getElementById('name-valid').innerHTML = 'The name you entered is: <span style = "color:Green;"><b>Valid</b></span>';
+                    }
+                    else {
+                        document.getElementById('name-valid').innerHTML = 'The name you entered is: <span style = "color:Red;"><b>Invalid</b></span>';
+                    }
+                }, false);
+
+          </script>
+          
+          <div class="slide">
+            <header>
+              <h1>Cross Document Messaging - Part 2</h1>
+            </header>
+            <section>
+                <h2>Server Code (http://davearlin.com/page.html)</h2>
+                <pre>
+&lt;script type="text/javascript"&gt;
+    var baseUrl = "http://davearlin.com/UserMessageService.asmx";
+
+    function validateUser(username, event) {
+        var postData = username;
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: baseUrl + "/ValidateUser",
+            data: '{ userId: "' + postData + '" }',
+            dataType: "json",
+            success: function (msg) {
+                <b>event.source.postMessage(msg.d.toString(), event.origin);</b>
+            }
+        });
+    }
+
+    <b>window.addEventListener("message",
+    function (e) {
+        validateUser(e.data, e);
+    }, false);</b>
+&lt;/script&gt;
+                </pre>
+            </section>
+        </div>
+          <div class="slide">
+			<style>
+		    	#ta {
+		        	width: 300px;
+		        	height: 150px;
+		        	display: inline;
+		        }
+		        #unsaved {
+              width: 300px;
+              height: 150px;
+              display: inline;
+            }
+		        #localstorage-message {
+		           padding-top: 50px;
+		        }
+		        .textareas {
+              margin-top: 20px;
+            }
+		    </style>
+            
+            <header>
+              <h1>Web Storage</h1>
+            </header>
+            <section>
+		<pre>
+ // use localStorage for persistent storage
+ // use sessionStorage for per tab storage
+ textarea.addEventListener('keyup', function () {
+   window.<b>localStorage</b>['value'] = area.value;
+   window.<b>localStorage</b>['timestamp'] = (new Date()).getTime();
+ }, false);
+textarea.value = window.<b>localStorage</b>['value'];
+		</pre>
+              
+              <p id="localstorage-message">Save text value on the client side (crash-safe)</p>
+              <section class="textareas">
+                <textarea id="ta" placeholder="Type your text here..."></textarea>
+                <textarea id="unsaved" placeholder="This text is not saved..."></textarea>
+              </section>
+              <button id="save-ta">Save</button>
+              <p id="ta-log"></p>
+		<script>
+		    var area = document.querySelector('#ta');
+		    // place content from previous edit
+		    if (!area.value) {
+		        area.value = window.localStorage.getItem('value');
+		    }
+		    updateLog(false);
+
+		    // your content will be saved locally
+		    document.querySelector('#save-ta').addEventListener('click', function () {
+		        window.localStorage.setItem('value', area.value);
+		        window.localStorage.setItem('timestamp', (new Date()).getTime());
+		        updateLog(true);
+		    }, false);
+
+		    function updateLog(new_save) {
+		        var log = document.querySelector("#ta-log");
+		        var delta = 0;
+		        if (window.localStorage.getItem('value')) {
+		            delta = ((new Date()).getTime() - (new Date()).setTime(window.localStorage.getItem('timestamp'))) / 1000;
+		            if (new_save) {
+		                log.textContent = 'Saved. Content will be available after browser refresh/reopen.';
+		                setTimeout(function () {
+		                    log.textContent = '';
+		                }, 3000);
+		            } else {
+		                log.textContent = 'last saved: ' + delta + 's ago';
+		            }
+		        }
+		    }
+ 
+		</script>
+              
+            </section>
+          </div>
+          <div class="slide">
+				          <style>
+				            .record-list li:nth-child(odd) { background-color: #eee; }
+				            .record-list li:nth-child(even) { background-color: #ddd; }
+				            #db-results {
+				              max-height: 150px;
+				              overflow: auto;
+				              text-align: left;
+				            }
+				          </style>
+            
+            <header>
+              <h1>Web SQL Database</h1>
+            </header>
+            <section>
+<pre>var db = window.<b>openDatabase</b>("Database Name", "Database Version");
+db.<b>transaction</b>(function(tx) {
+tx.<b>executeSql</b>(<em>"SELECT * FROM test"</em>, [], successCallback, errorCallback);
+});
+</pre>
+              
+              <div class="center">
+                <ul class="record-list" id="db-results">
+                </ul>
+                <div id="db-log">
+                </div>
+                <input type="text" id="todoitem" /> <button onclick="newRecord()">new to do item</button> <button onclick="createTable()">create table</button> <button onclick="dropTable()">drop table</button>
+                <p>See the generated database: Developer> Developer Tools> Storage</p>
+              </div>
+				          <script>
+				              var db;
+				              var log = document.getElementById('db-log');
+				              if (window.openDatabase) {
+				                  db = openDatabase("DBTest", "1.0", "HTML5 Database API example", 200000);
+				                  showRecords();
+				              }
+				              document.getElementById('db-results').addEventListener('click', function (e) { e.preventDefault(); }, false);
+
+				              function onError(tx, error) {
+				                  log.innerHTML += '<p>' + error.message + '</p>';
+				              }
+
+				              // select all records and display them
+				              function showRecords() {
+				                  document.getElementById('db-results').innerHTML = '';
+				                  db.transaction(function (tx) {
+				                      tx.executeSql("SELECT * FROM Table1Test", [], function (tx, result) {
+				                          for (var i = 0, item = null; i < result.rows.length; i++) {
+				                              item = result.rows.item(i);
+				                              document.getElementById('db-results').innerHTML +=
+				                        '<li><span contenteditable="true" onkeyup="updateRecord(' + item['id'] + ', this)">' +
+				                        item['text'] + '</span> <a href="#" onclick="deleteRecord(' + item['id'] + ')">[Delete]</a></li>';
+				                          }
+				                      });
+				                  });
+				              }
+
+				              function createTable() {
+				                  db.transaction(function (tx) {
+				                      tx.executeSql("CREATE TABLE Table1Test (id REAL UNIQUE, text TEXT)", [],
+				                    function (tx) { log.innerHTML = '<p>Table1Test created!</p>' },
+				                    onError);
+				                  });
+				              }
+
+				              // add record with random values
+				              function newRecord() {
+				                  var num = Math.round(Math.random() * 10000); // random data
+				                  db.transaction(function (tx) {
+				                      tx.executeSql("INSERT INTO Table1Test (id, text) VALUES (?, ?)", [num, document.querySelector('#todoitem').value],
+				                    function (tx, result) {
+				                        log.innerHTML = '';
+				                        showRecords();
+				                    },
+				                    onError);
+				                  });
+				              }
+
+				              function updateRecord(id, textEl) {
+				                  db.transaction(function (tx) {
+				                      tx.executeSql("UPDATE Table1Test SET text = ? WHERE id = ?", [textEl.innerHTML, id], null, onError);
+				                  });
+				              }
+
+				              function deleteRecord(id) {
+				                  db.transaction(function (tx) {
+				                      tx.executeSql("DELETE FROM Table1Test WHERE id=?", [id],
+				                    function (tx, result) { showRecords() },
+				                    onError);
+				                  });
+				              }
+
+				              // delete table from db
+				              function dropTable() {
+				                  db.transaction(function (tx) {
+				                      tx.executeSql("DROP TABLE Table1Test", [],
+				                    function (tx) { showRecords() },
+				                    onError);
+				                  });
+				              }
+				          </script>
+              
+            </section>
+          </div>
+          
+          
+          <div class="slide">
+            <header>
+              <h1>Mobile Geolocation Demo</h1>
+            </header>
+            <section class="middle">
+              <p>Open this link from your mobile device (iPhone preferred)</p>
+              <h2><a href="http://bit.ly/brJYOc" target="_blank">http://bit.ly/brJYOc</a></h2>
+            </section>
+          </div>
+          
+          <div class="slide">
+            <section class="bulleted">
+              <header>
+                <h1>Other cool stuff:</h1>
+              </header>
+              <ul>
+                <li>Improved javascript selectors</li>
+                <li>Better standardization across browsers (Incl. the DOM)</li>
+                <li>Notifications</li>
+                <li>Drag &amp; Drop</li>
+              </ul>
+            </section>
+          </div>
+          
+          <div class="slide">
+            <section class="middle emphasis">
+              <h1>Web Form Improvements!</h1>
+            </section>
+          </div>
+          
+          <div class="slide">
+            <header><span class="html">HTML</span>
+              <h1>Placeholder Text</h1>
+            </header>
+            <section>
+            <style>
+            [required] {
+              background-color: lightyellow;
+            }
+            :invalid {
+              background-color: red;
+            }
+            .form-inputs {
+              font-size: 80%;
+            }
+            .form-inputs input {
+              padding: 2px;
+            }
+            </style>
+<pre class="form-inputs">
+&lt;input type="<b>tel</b>" placeholder="(555) 555-5555" /&gt;
+<input type="tel" placeholder="(555) 555-5555" pattern="^\(?\d{3}\)?[-\s]\d{3}[-\s]\d{4}.*?$" />
+</pre>
+
+<pre class="form-inputs">
+&lt;script&gt;
+var phone = document.getElementById('phonedemo');
+if(phone.value == "")
+{
+  phone.value = phone.getAttribute("default");
+}
+
+phone.onfocus = function ()
+{
+  if(this.value == this.getAttribute("default")){
+    this.value = "";
+  };
+}
+
+phone.onblur = function()
+{
+  if(this.value == ""){
+    this.value = this.getAttribute("default");
+  }
+}
+&lt;/script&gt;
+
+&lt;input type="<b>tel</b>" default="(555) 555-5555" /&gt;
+<input id="phonedemo" type="tel" default="(555) 555-5555" />
+</pre>
+              <script>
+                  var phone = document.getElementById('phonedemo');
+                  if (phone.value == "") {
+                      phone.value = phone.getAttribute("default");
+                  }
+
+                  phone.onfocus = function () {
+                      if (this.value == this.getAttribute("default")) {
+                          this.value = "";
+                      };
+                  }
+
+                  phone.onblur = function () {
+                      if (this.value == "") {
+                          this.value = this.getAttribute("default");
+                      }
+                  }
+              </script>
+            </section>
+          </div>
+          
+          
+          <div class="slide">
+            <header><span class="html">HTML</span>
+              <h1>Form Validation</h1>
+            </header>
+            <section>
+
+            <pre class="form-inputs">
+&lt;style&gt;
+  [required] { background-color: lightyellow; }
+  :invalid { background-color: red; }
+&lt;/style&gt;
+ 
+&lt;input type="text" <b>required</b> /&gt;<input type="text" required />
+&lt;input type="<b>email</b>" value="some@email.com" /&gt; <input type="email" value="some@email.com" />
+&lt;input type="<b>date</b>" <b>min</b>="2010-08-14" <b>max</b>="2011-08-14" value="2010-08-14"/&gt; <input type="date" min="2010-08-14" max="2011-08-14" value="2010-08-14" />
+</pre>
+            
+            </section>
+          </div>
+          
+          
+          <div class="slide">
+            <header>
+              <h1>Form Demo</h1>
+            </header>
+            <section class="middle">
+              <p>Try this cool demo:</p>
+              <h2><a href="http://bit.ly/cGNgub" target="_blank">http://bit.ly/cGNgub</a></h2>
+            </section>
+          </div>
+          
+          
+          <div class="slide">
+            <header><span class="html">HTML</span>
+              <h1>Additional Input/Form Elements</h1>
+            </header>
+            <section>
+
+            <pre class="form-inputs">
+&lt;input type="<b>range</b>" <b>min</b>="0" <b>max</b>="50" value="10" /&gt; <input  type="range" min="0" max="50" value="10" />
+
+&lt;<b>meter</b> <b>min</b>="0" <b>max</b>="100" <b>low</b>="40" <b>high</b>="90" <b>optimum</b>="100" value="91"&gt;A+&lt;/<b>meter</b>&gt;
+
+Your score is: <meter value="91" min="0" max="100" low="40" high="90" optimum="100">A+</meter>
+&lt;<b>progress</b>&gt;working...&lt;/<b>progress</b>&gt;
+
+Download is: <progress>working...</progress>
+
+&lt;<b>progress</b> value="75" <b>max</b>="100"&gt;3/4 complete&lt;/<b>progress</b>&gt;
+
+Goal is: <progress value="75" max="100">3/4 complete</progress>
+</pre>
+              
+            </section>
+          </div>
+          
+      
+          <div class="slide">
+            <header><span class="html">HTML</span>
+              <h1>Canvas</h1>
+            </header>
+            <section>
+            <style>
+              #canvas-area {
+                background: white;
+                -webkit-border-radius: 8px;
+                -khtml-border-radius: 8px;
+                -moz-border-radius: 8px;
+                border-radius: 8px;
+                border: 1px solid #bbb;
+              }
+            </style>
+            <pre>&lt;canvas id="canvas" width="838" height="220"&gt;&lt;/canvas&gt;
+ 
+&lt;script&gt;
+  var canvasContext = document.getElementById("canvas").<b>getContext</b>("2d");
+  canvasContext.<b>fillRect</b>(250, 25, 150, 100);
+  
+  canvasContext.<b>beginPath</b>();
+  canvasContext.<b>arc</b>(450, 110, 100, Math.PI * 1/2, Math.PI * 3/2);
+  canvasContext.<b>lineWidth</b> = 15;
+  canvasContext.<b>lineCap</b> = 'round';
+  canvasContext.<b>strokeStyle</b> = 'rgba(255, 127, 0, 0.5)';
+  canvasContext.<b>stroke</b>();
+&lt;/script&gt;
+            </pre>
+               <canvas id="canvas-area" width="838" height="225"></canvas>
+            <script>
+                var canvasContext = document.getElementById("canvas-area").getContext("2d");
+                canvasContext.fillRect(250, 25, 150, 100);
+                canvasContext.beginPath();
+                canvasContext.arc(450, 110, 100, Math.PI * 1 / 2, Math.PI * 3 / 2, false);
+                canvasContext.lineWidth = 15;
+                canvasContext.lineCap = 'round';
+                canvasContext.strokeStyle = 'rgba(255, 127, 0, 0.5)';
+                canvasContext.stroke();
+            </script>
+              
+            </section>
+          </div>
+          
+          
+          <div class="slide">
+            <header>
+              <h1>Canvas Demos</h1>
+            </header>
+            <section class="middle">
+              <p>Canvas Demos:</p>
+              <h2><a href="http://hakim.se/experiments" target="_blank">          http://hakim.se/experiments</a></h2>
+            </section>
+          </div>
+          
+          <!--    
+          <div class="slide force-render">
+          <style>
+            #canvas-example {
+              margin-left: 150px;
+              margin-top: 40px;
+              padding: 0;
+              width: 520px;
+              height: 500px;
+            }
+            #canvas-example iframe {
+              width: 520px;
+              height: 500px;
+              border: none;
+              background: white;
+            }
+          </style>
+            
+            <header><span class="html">HTML</span>
+              <h1>Canvas example</h1>
+            </header>
+            <section>
+              <div id="canvas-example" class="example"> <iframe src="src/canvasphoto/index.html" scrolling="no"></iframe>
+              </div>
+            </section>
+          </div>
+          <div class="slide force-render">
+          <style>
+            #webgl-iframe {
+              border: none;
+              width: 100%;
+              height:352px;
+            }
+          </style>
+            
+            <header><span class="html">HTML</span>
+              <h1>Canvas 3D (WebGL)</h1>
+            </header>
+            <section>
+            <pre>&lt;canvas id="canvas" width="838" height="220"&gt;&lt;/canvas&gt;
+ 
+&lt;script&gt;
+  var gl = document.getElementById("canvas").<b>getContext</b>("experimental-webgl");
+  gl.<b>viewport</b>(0, 0, canvas.width, canvas.height);
+  ...
+&lt;/script&gt;
+            </pre>
+               <iframe scrolling="no" src="src/webgl/san_angeles.html" id="webgl-iframe"></iframe>
+            </section>
+          </div>
+          <div class="slide force-render">
+            <header><span class="html">HTML</span>
+              <h1>SVG in HTML5</h1>
+            </header>
+            <section>
+            <style>
+              #svg {
+                -webkit-border-radius: 8px;
+                -khtml-border-radius: 8px;
+                -moz-border-radius: 8px;
+                border-radius: 8px;
+                border: 1px solid #bbb;
+              }
+            </style>
+              
+            <pre>&lt;html&gt;
+  <b>&lt;svg&gt;
+    &lt;circle id="myCircle" class="important" cx="50%" cy="50%" r="100" 
+        fill="url(#myGradient)"
+        onmousedown="alert('hello');"/&gt;
+  &lt;/svg&gt;</b>
+&lt;/html&gt;</pre>
+              
+              <div class="svg">
+              </div>
+          <script>
+            // insert SVG using script until SVG in HTML5 is more widely supported
+            // (currently supported in IE 9 and Firefox nightlies only)
+            window.addEventListener('DOMContentLoaded', function() {
+              var container = document.getElementsByClassName('svg')[0];
+              var svgns = 'http://www.w3.org/2000/svg';
+              var svg = document.createElementNS(svgns, 'svg');
+              svg.setAttribute('width', '300px');
+              svg.setAttribute('height', '300px');
+              
+              // our linearGradient
+              var defs = document.createElementNS(svgns, 'defs');
+              var gradient = document.createElementNS(svgns, 'linearGradient');
+              gradient.setAttribute('id', 'myGradient');
+              gradient.setAttribute('x1', '0%');
+              gradient.setAttribute('y1', '100%');
+              gradient.setAttribute('x2', '100%');
+              gradient.setAttribute('y2', '0%');
+              var stop = document.createElementNS(svgns, 'stop');
+              stop.setAttribute('offset', '5%');
+              stop.setAttribute('stop-color', 'red');
+              gradient.appendChild(stop);
+              stop = document.createElementNS(svgns, 'stop');
+              stop.setAttribute('offset', '95%');
+              stop.setAttribute('stop-color', 'blue');
+              stop.setAttribute('stop-opacity', '0.5');
+              gradient.appendChild(stop);
+              defs.appendChild(gradient);
+              svg.appendChild(defs);
+              
+              // our example circle
+              var circle = document.createElementNS(svgns, 'circle');
+              circle.setAttribute('cx', '50%');
+              circle.setAttribute('cy', '50%');
+              circle.setAttribute('r', 100);
+              circle.setAttribute('fill', 'url(#myGradient)');
+              circle.setAttribute('stroke-color', 'red');
+              circle.addEventListener('mousedown', function() {
+                alert('hello');
+              }, false);
+              svg.appendChild(circle);
+              container.appendChild(svg);
+            }, false);
+          </script>
+              
+            </section>
+          </div>
+          
+          
+          
+          
+          <div class="slide">
+          <style>
+            span.space {
+              padding: 0 5px;
+            }
+          </style>
+            
+            <header>
+              <h1>Chrome Frame</h1>
+            </header>
+            <section>
+              <ul class="bullets">
+                <li>Minimal effort for bringing IE6, 7 and 8 up to the latest HTML5 technologies</li>
+                <li>Two ways to get your websites ready for Chrome Frame:</li>
+              </ul>
+              <p>Client side:</p>
+      			<pre>&lt;meta http-equiv="X-UA-Compatible" content="chrome=1"></pre>
+              
+              <p>Server side:</p>
+      			<pre>X-UA-Compatible: chrome=1</pre>
+              
+              <p style="font-size: 30px"> Try to load this presentation in IE! </p>
+            </section>
+          </div>
+          <div class="slide">
+          <style>
+            p.resource-link {
+              font-size: 40px;
+            }
+            p.resource-link a {
+              color: blue;
+              text-decoration: underline;
+              border: none;
+            }
+          </style>
+            
+            <section class="middle formula"> HTML5 ~= <span class="html">HTML</span> + <span class="css">CSS</span> + <span class="js">JS APIs</span>
+              <p> HTML5 <em class="stroke">=</em> Next Generation Features for Modern Web Development </p>
+              <p class="resource-link"> <a href="http://slides.html5rocks.com">http://slides.html5rocks.com</a> <a href="http://www.html5rocks.com">http://www.html5rocks.com</a> </p>
+            </section>
+          </div>-->
+          
+          
+          <div class="slide">
+            <section class="middle emphasis">
+              <h1>Issues &amp; Concerns</h1>
+            </section>
+          </div>
+          
+          <div class="slide">
+            <section class="bulleted">
+              <header>
+                <h1>Backwards Compatibility Strategy:</h1>
+              </header>
+              <ul>
+                <li>Feature Detection</li>
+                <li>Many features fallback gracefully (form elements)</li>
+                <li>Javascript implementations of HTML5 when necessary</li>
+                <li>Scripts like <a href="http://www.modernizr.com/" target="_blank">modernizr</a></li>
+                <li>Google Chrome Frame</li>
+              </ul>
+            </section>
+          </div>
+          
+          <div class="slide">
+            <section class="bulleted">
+              <header>
+                <h1>Other cool items we didn't have time to cover</h1>
+              </header>
+              <ul>
+                <li>(history).pushstate Javascript API</li>
+                <li>Cache manifest - Offline apps</li>
+                <li>Web workers</li>
+              </ul>
+            </section>
+          </div>
+          
+          <div class="slide">
+            <section class="bulleted">
+              <header>
+                <h1>Resources</h1>
+              </header>
+              <ul>
+                <li><a href="http://html5rocks.com" target="_blank">html5rocks.com</a></li>
+                <li><a href="http://html5readiness.com/" target="_blank">html5readiness.com</a></li>
+                <li><a href="http://diveintohtml5.org/" target="_blank">diveintohtml5.org</a></li>
+                <li><a href="http://html5doctor.com" target="_blank">html5doctor.com</a></li>
+                <li><a href="http://html5boilerplate.com" target="_blank">html5boilerplate.com</a></li>
+              </ul>
+            </section>
+          </div>
+          
+      </div> <!-- slides -->
+          
+    </div> <!-- presentation -->
+          
+    <script>
+      (function() {
+        var doc = document;
+        var disableBuilds = true;
+ 
+        var ctr = 0;
+        var spaces = /\s+/, a1 = [''];
+ 
+        var toArray = function(list) {
+          return Array.prototype.slice.call(list || [], 0);
+        };
+ 
+        var byId = function(id) {
+          if (typeof id == 'string') { return doc.getElementById(id); }
+          return id;
+        };
+ 
+        var query = function(query, root) {
+          if (!query) { return []; }
+          if (typeof query != 'string') { return toArray(query); }
+          if (typeof root == 'string') {
+            root = byId(root);
+            if(!root){ return []; }
+          }
+ 
+          root = root || document;
+          var rootIsDoc = (root.nodeType == 9);
+          var doc = rootIsDoc ? root : (root.ownerDocument || document);
+ 
+          // rewrite the query to be ID rooted
+          if (!rootIsDoc || ('>~+'.indexOf(query.charAt(0)) >= 0)) {
+            root.id = root.id || ('qUnique' + (ctr++));
+            query = '#' + root.id + ' ' + query;
+          }
+          // don't choke on something like ".yada.yada >"
+          if ('>~+'.indexOf(query.slice(-1)) >= 0) { query += ' *'; }
+ 
+          return toArray(doc.querySelectorAll(query));
+        };
+ 
+        var strToArray = function(s) {
+          if (typeof s == 'string' || s instanceof String) {
+            if (s.indexOf(' ') < 0) {
+              a1[0] = s;
+              return a1;
+            } else {
+              return s.split(spaces);
+            }
+          }
+          return s;
+        };
+ 
+        var addClass = function(node, classStr) {
+          classStr = strToArray(classStr);
+          var cls = ' ' + node.className + ' ';
+          for (var i = 0, len = classStr.length, c; i < len; ++i) {
+            c = classStr[i];
+            if (c && cls.indexOf(' ' + c + ' ') < 0) {
+              cls += c + ' ';
+            }
+          }
+          node.className = cls.trim();
+        };
+ 
+        var removeClass = function(node, classStr) {
+          var cls;
+          if (classStr !== undefined) {
+            classStr = strToArray(classStr);
+            cls = ' ' + node.className + ' ';
+            for (var i = 0, len = classStr.length; i < len; ++i) {
+              cls = cls.replace(' ' + classStr[i] + ' ', ' ');
+            }
+            cls = cls.trim();
+          } else {
+            cls = '';
+          }
+          if (node.className != cls) {
+            node.className = cls;
+          }
+        };
+ 
+        var toggleClass = function(node, classStr) {
+          var cls = ' ' + node.className + ' ';
+          if (cls.indexOf(' ' + classStr.trim() + ' ') >= 0) {
+            removeClass(node, classStr);
+          } else {
+            addClass(node, classStr);
+          }
+        };
+ 
+        var ua = navigator.userAgent;
+        var isFF = parseFloat(ua.split('Firefox/')[1]) || undefined;
+        var isWK = parseFloat(ua.split('WebKit/')[1]) || undefined;
+        var isOpera = parseFloat(ua.split('Opera/')[1]) || undefined;
+ 
+        var canTransition = (function() {
+          var ver = parseFloat(ua.split('Version/')[1]) || undefined;
+          // test to determine if this browser can handle CSS transitions.
+          var cachedCanTransition = 
+            (isWK || (isFF && isFF > 3.6 ) || (isOpera && ver >= 10.5));
+          return function() { return cachedCanTransition; }
+        })();
+ 
+        //
+        // Slide class
+        //
+        var Slide = function(node, idx) {
+          this._node = node;
+          if (idx >= 0) {
+            this._count = idx + 1;
+          }
+          if (this._node) {
+            addClass(this._node, 'slide distant-slide');
+          }
+          this._makeCounter();
+          this._makeBuildList();
+        };
+ 
+        Slide.prototype = {
+          _node: null,
+          _count: 0,
+          _buildList: [],
+          _visited: false,
+          _currentState: '',
+          _states: [ 'distant-slide', 'far-past',
+                     'past', 'current', 'future',
+                     'far-future', 'distant-slide' ],
+          setState: function(state) {
+            if (typeof state != 'string') {
+              state = this._states[state];
+            }
+            if (state == 'current' && !this._visited) {
+              this._visited = true;
+              this._makeBuildList();
+            }
+            removeClass(this._node, this._states);
+            addClass(this._node, state);
+            this._currentState = state;
+ 
+            // delay first auto run. Really wish this were in CSS.
+            /*
+            this._runAutos();
+            */
+            var _t = this;
+            setTimeout(function(){ _t._runAutos(); } , 400);
+          },
+          _makeCounter: function() {
+            if(!this._count || !this._node) { return; }
+            var c = doc.createElement('span');
+            c.innerHTML = this._count;
+            c.className = 'counter';
+            this._node.appendChild(c);
+          },
+          _makeBuildList: function() {
+            this._buildList = [];
+            if (disableBuilds) { return; }
+            if (this._node) {
+              this._buildList = query('[data-build] > *', this._node);
+            }
+            this._buildList.forEach(function(el) {
+              addClass(el, 'to-build');
+            });
+          },
+          _runAutos: function() {
+            if (this._currentState != 'current') {
+              return;
+            }
+            // find the next auto, slice it out of the list, and run it
+            var idx = -1;
+            this._buildList.some(function(n, i) {
+              if (n.hasAttribute('data-auto')) {
+                idx = i;
+                return true;
+              }
+              return false;
+            });
+            if (idx >= 0) {
+              var elem = this._buildList.splice(idx, 1)[0];
+              var transitionEnd = isWK ? 'webkitTransitionEnd' : (isFF ? 'mozTransitionEnd' : 'oTransitionEnd');
+              var _t = this;
+              if (canTransition()) {
+                var l = function(evt) {
+                  elem.parentNode.removeEventListener(transitionEnd, l, false);
+                  _t._runAutos();
+                };
+                elem.parentNode.addEventListener(transitionEnd, l, false);
+                removeClass(elem, 'to-build');
+              } else {
+                setTimeout(function() {
+                  removeClass(elem, 'to-build');
+                  _t._runAutos();
+                }, 400);
+              }
+            }
+          },
+          buildNext: function() {
+            if (!this._buildList.length) {
+              return false;
+            }
+            removeClass(this._buildList.shift(), 'to-build');
+            return true;
+          },
+        };
+ 
+        //
+        // SlideShow class
+        //
+        var SlideShow = function(slides) {
+          this._slides = (slides || []).map(function(el, idx) {
+            return new Slide(el, idx);
+          });
+ 
+          var h = window.location.hash;
+          try {
+            this.current = parseInt(h.split('#slide')[1], 10);
+          }catch (e) { /* squeltch */ }
+          this.current = isNaN(this.current) ? 1 : this.current;
+          var _t = this;
+          doc.addEventListener('keydown', 
+              function(e) { _t.handleKeys(e); }, false);
+          doc.addEventListener('mousewheel', 
+              function(e) { _t.handleWheel(e); }, false);
+          doc.addEventListener('DOMMouseScroll', 
+              function(e) { _t.handleWheel(e); }, false);
+          doc.addEventListener('touchstart', 
+              function(e) { _t.handleTouchStart(e); }, false);
+          doc.addEventListener('touchend', 
+              function(e) { _t.handleTouchEnd(e); }, false);
+          window.addEventListener('popstate', 
+              function(e) { _t.go(e.state); }, false);
+          this._update();          
+        };
+ 
+        SlideShow.prototype = {
+          _slides: [],
+          _update: function(dontPush) {
+            document.querySelector('#presentation-counter').innerText = this.current;
+            if (history.pushState) {
+              if (!dontPush) {
+                history.pushState(this.current, 'Slide ' + this.current, '#slide' + this.current);
+              }
+            } else {
+              window.location.hash = 'slide' + this.current;
+            }
+            for (var x = this.current-1; x < this.current + 7; x++) {
+              if (this._slides[x-4]) {
+                this._slides[x-4].setState(Math.max(0, x-this.current));
+              }
+            }
+          },
+ 
+          current: 0,
+          next: function() {
+            if (!this._slides[this.current-1].buildNext()) {
+              this.current = Math.min(this.current + 1, this._slides.length);
+              this._update();
+            }
+          },
+          prev: function() {
+            this.current = Math.max(this.current-1, 1);
+            this._update();
+          },
+          go: function(num) {
+            if (history.pushState && this.current != num) {
+              history.replaceState(this.current, 'Slide ' + this.current, '#slide' + this.current);
+            }
+            this.current = num;
+            this._update(true);
+          },
+ 
+          _notesOn: false,
+          showNotes: function() {
+            var isOn = this._notesOn = !this._notesOn;
+            query('.notes').forEach(function(el) {
+              el.style.display = (notesOn) ? 'block' : 'none';
+            });
+          },
+          switch3D: function() {
+            toggleClass(document.body, 'three-d');
+          },
+          handleWheel: function(e) {
+            var delta = 0;
+            if (e.wheelDelta) {
+              delta = e.wheelDelta/120;
+              if (isOpera) {
+                delta = -delta;
+              }
+            } else if (e.detail) {
+              delta = -e.detail/3;
+            }
+ 
+            if (delta > 0 ) {
+              this.prev();
+              return;
+            }
+            if (delta < 0 ) {
+              this.next();
+              return;
+            }
+          },
+          handleKeys: function(e) {
+            
+            if (/^(input|textarea)$/i.test(e.target.nodeName)) return;
+            
+            switch (e.keyCode) {
+              case 37: // left arrow
+                this.prev(); break;
+              case 39: // right arrow
+              case 32: // space
+                this.next(); break;
+              case 50: // 2
+                this.showNotes(); break;
+              case 51: // 3
+                this.switch3D(); break;
+            }
+          },
+          _touchStartX: 0,
+          handleTouchStart: function(e) {
+            this._touchStartX = e.touches[0].pageX;
+          },
+          handleTouchEnd: function(e) {
+            var delta = this._touchStartX - e.changedTouches[0].pageX;
+            var SWIPE_SIZE = 150;
+            if (delta > SWIPE_SIZE) {
+              this.next();
+            } else if (delta< -SWIPE_SIZE) {
+              this.prev();
+            }
+          },
+        };
+ 
+        // Initialize
+        var slideshow = new SlideShow(query('.slide'));
+      })();
+    </script>
+          
+    <!--[if lt IE 9]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">
+    </script>
+		<script>CFInstall.check({ mode: "overlay" });</script>
+    <![endif]-->
+          
+    <script>
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-15028909-5']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+          
+        </body>
+      </html>/bin/bash: -c: line 0: syntax error near unexpected token `newline' /bin/bash: -c: line 0: `
+      <!DOCTYPE html>'
