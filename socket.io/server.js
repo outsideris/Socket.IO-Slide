@@ -2,16 +2,17 @@ var http = require("http"),
     sys = require("sys"),
     url = require("url"),
     fs = require("fs"),
+	path = require("path"),
     io = require("socket.io"),
     PORT = 8124,
     HOST = null,
 
 server = http.createServer(function (req, res) {
 
-    //util.get('/', util.staticHandler('index.html'));
-    var path = url.parse(req.url).pathname;
-    sys.debug(path);
-    switch (path) {
+    var uri = url.parse(req.url).pathname;
+    sys.debug(uri);
+	
+    switch (uri) {
         case '/':
         case '/main.html':
             staticHandler("../main.html", req, res);
@@ -23,9 +24,29 @@ server = http.createServer(function (req, res) {
             staticHandler("../test.html", req, res);
             break;
         default:
-            res.writeHead(404);
-            res.write("404");
-            res.end();
+			var filename = path.join(process.cwd(), "../" + uri);
+			sys.debug(filename); 
+			path.exists(filename, function(exists) {  
+		        if(!exists) {  
+					res.writeHead(404, {"Content-Type": "text/plain"});
+		            res.write("404 Not Found\n");
+		            res.end();
+		            return;  
+		        }  
+		   
+		        fs.readFile(filename, "binary", function(err, file) {  
+		            if(err) {  
+		                res.writeHead(500, {"Content-Type": "text/plain"});  
+		                res.write(err + "\n");  
+		                res.end();  
+		                return;  
+		            }  
+		   
+		            res.writeHead(200);  
+		            res.write(file, "binary");  
+		            res.end();  
+		        });  
+		    });
     }
 });
 server.listen(PORT, HOST);
