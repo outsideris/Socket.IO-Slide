@@ -33,10 +33,12 @@ server.listen(PORT, HOST);
 
 var socket = io.listen(server);
 
-socket.on("connect", function(client) {
+socket.on("connection", function(client) {
     sys.debug("socket connected");
     client.on("message", function(msg) {
       sys.debug("message is received : " + msg);
+	  client.send({ msg: msg });
+	  client.broadcast({ msg: "broadcasted" });
     });
     client.on("disconnect", function() {
       sys.debug("disconnect");

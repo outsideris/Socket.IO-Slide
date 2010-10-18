@@ -10,15 +10,19 @@
         
         <script src="socket.io/socket.io.js"></script>
         <script>
-            var connect = function() {
-				var socket = new io.Socket();
-				socket.on('connect', function(){
-				    // connected!
-				});
-//				socket.on('message', function(msg){
-//				    // message coming
-//				});
-//				socket.send('Hello world!');	
+			var socket;
+
+			var connect = function(){
+				if (!socket) {
+					socket = new io.Socket(null);
+				}
+				if (!socket.connected) {
+					socket.connect();
+					socket.on('message', function(msg){
+						console.log(msg);
+					});
+				}
+				socket.send("Hi!!");
 			}
         </script>    
     </head> 
