@@ -19,6 +19,9 @@ server = http.createServer(function (req, res) {
         case '/main.js':
             staticHandler("../main.js", req, res);
             break;
+        case '/test.html':
+            staticHandler("../test.html", req, res);
+            break;
         default:
             res.writeHead(404);
             res.write("404");
