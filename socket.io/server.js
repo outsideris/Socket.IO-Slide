@@ -57,7 +57,7 @@ var staticHandler = function(filename, req, res) {
 			'Content-Length': body.length
 		});
 		res.write(body);
-		res.close();
+		res.end();
 	});
 };
 
