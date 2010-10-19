@@ -550,12 +550,12 @@
           
           <section class="middle intro">
             <hgroup>
-              <h1> HTML5* </h1>
-              <h2> Modern markup for the modern web. </h2>
+              <h1> Socket.IO </h1>
+              <h2> Real-Time Web for Everywhere </h2>
             </hgroup>
-            <p>*Including other next generation technologies of the Web Development stack</p>
-            <h2>Follow Along:</h2>
-            <h2><a href="http://bit.ly/aVWYaw" target="_blank">http://bit.ly/aVWYaw</a></h2>
+            <p>* 2010. 10. 23</p>
+            <h2><a href="http://blog.outsider.ne.kr" target="_blank">Outsider</a></h2>
+            <h2>in <a href="http://frends.kr" target="_blank">FRENDS</a></h2>
           </section>
         </div>
         <div class="slide">
@@ -575,55 +575,49 @@
 	          </style>
           
           <section class="middle emphasis">
-            <h1>What is HTML5?</h1>
-            <section class="formula"> HTML5 ~= <span class="html">HTML</span> + <span class="css">CSS</span> + <span class="js">JS APIs</span>
-            </section>
-            <p>*Not just the markup language, but the whole web stack</p>
+            <h1>We want Real-Time</h1>
           </div>
           <div class="slide">
             <section class="middle emphasis">
-              <h1>When will it be ready?</h1>
-              <h2>2022</h2>
+              <h2>So....</h2>
+			  <br/>
+              <h1>Polling</h1>
             </section>
           </div>
-		<style>
-            .backgroundimage img {
-			  position: absolute;
-			  top: 0px;
-			  left: 0px;
-            }
- 
-			.backgroundimage section {
-				z-index: 2;
-				position: absolute;
-				text-shadow: rgba(255, 255, 255, 0.8) 0 6px 14px;
-				top: 400px;
-			}
-          </style>
-          
-          <div class="slide backgroundimage">
-            <img src="src/sunrise.jpg" class="backgroundimage"></img>
-            <section class="middle emphasis">
-              <h1>It's still usable today!</h1>
+
+          <div class="slide">
+          	<style>
+		    	section.bulleted ul li {
+		          margin-top: -5px;
+		          font-size: 40px;
+		          letter-spacing: -1px;
+				  list-style: square;
+				  text-align: left;
+				  margin-left: 100px;
+		        }
+		    </style>
+            <section class="middle emphasis bulleted">
+              <h2>But....</h2>
+			  <h1>Polling has disadvantages.</h1>
+              <ul>
+                <li>Latency (Interval time)</li>
+                <li>inefficient traffic</li>
+              </ul>
             </section>
           </div>
           <div class="slide">
-            <section class="middle emphasis">
-              <h1>HTML5 Markup Changes</h1>
+            <section class="middle emphasis bulleted">
+              <h1>We want MORE Real-Time</h1>
             </section>
           </div>
           <div class="slide">
-            <header><span class="html">HTML</span>
-              <h1>New DOCTYPE</h1>
-            </header>
-            <section>
-              <h2>Compare new:</h2>
-		         <pre>&lt;!DOCTYPE html&gt;</pre>
-               <br/>
-              <h2>To old:</h2>
-				<pre>&lt;DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-				   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;</pre>
-              
+            <section class="middle emphasis bulleted">
+              <ul>
+                <li>Long Polling</li>
+                <li>Forever Iframe</li>
+                <li>Web Socket</li>
+                <li>etc...</li>
+              </ul>
             </section>
           </div>
 		<style>
@@ -634,53 +628,11 @@
 		</style>
           
           <div class="slide">
-            <header><span class="html">HTML</span>
-              <h1>New semantic tags</h1>
-            </header>
-            <section>
-            <pre class="half">
-&lt;body&gt;
-  &lt;<b>header</b>&gt;
-    &lt;<b>hgroup</b>&gt;
-      &lt;h1&gt;Page title&lt;/h1&gt;
-      &lt;h2&gt;Page subtitle&lt;/h2&gt;
-    &lt;/hgroup&gt;
-  &lt;/header&gt;
- 
-  &lt;<b>nav</b>&gt;
-   &lt;ul&gt;
-     Navigation...
-   &lt;/ul&gt;
-  &lt;/nav&gt;
- 
-  &lt;<b>footer</b>&gt;
-   Copyright &copy; 2009.
-  &lt;/footer&gt;
-&lt;/body&gt;
- 
-            </pre>
-			<pre class="half">
-&lt;body&gt;
-  &lt;<b>div class="header"</b>&gt;
-    &lt;<b>div</b>&gt;
-      &lt;h1&gt;Page title&lt;/h1&gt;
-      &lt;h2&gt;Page subtitle&lt;/h2&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
- 
-  &lt;<b>div class="navigation"</b>&gt;
-   &lt;ul&gt;
-     Navigation...
-   &lt;/ul&gt;
-  &lt;/div class="navigation"&gt;
- 
-  &lt;<b>div class="footer"</b>&gt;
-   Copyright &copy; 2009.
-  &lt;/footer&gt;
-&lt;/body&gt;
- 
-			</pre>
-              
+            <section class="middle emphasis">
+              <h1>Totally Different Techniques</h1>
+			  <br/>
+              <h2>So....</h2>
+              <h2>Server has to treat HTTP Request differently</h2>
             </section>
           </div>
           
@@ -690,69 +642,22 @@
           </style>
           
           <div class="slide">
-            <section class="middle">
-              <img src="src/tags1.png" class="tags1"></img>
-              <img src="src/tags2.png" class="tags2"></img>
+            <section class="middle emphasis">
+              <h1>Socket.IO with Node.js</h1>
+			  <br/>
+              <h2>save Us</h2>
             </section>
           </div>
           
           <div class="slide">
-            <header><span class="html">HTML</span>
-              <h1>New semantic tags</h1>
-            </header>
-            <section>
-            <pre class="half">
-&lt;<b>section</b>&gt;
-   &lt;<b>article</b>&gt;
-     &lt;<b>header</b>&gt;
-       &lt;h1&gt;Title&lt;/h1&gt;
-     &lt;/header&gt;
-     &lt;section&gt;
-       Content...
-     &lt;/section&gt;
-   &lt;/article&gt;
- 
-   &lt;article&gt;
-     &lt;header&gt;
-       &lt;h1&gt;Title&lt;/h1&gt;
-     &lt;/header&gt;
-     &lt;section&gt;
-       Content...
-     &lt;/section&gt;
-   &lt;/article&gt;
- 
-  &lt;<b>aside</b>&gt;
-   Top links...
-  &lt;/aside&gt;
-&lt;/section&gt;
-            </pre>
-              
-			<pre class="half">
-&lt;<b>span class="section"</b>&gt;
-   &lt;<b>span class="article"</b>&gt;
-     &lt;<b>span class="article-header"</b>&gt;
-       &lt;h1&gt;Title&lt;/h1&gt;
-     &lt;/span&gt;
-     &lt;span class="content"&gt;
-       Content...
-     &lt;/span&gt;
-   &lt;/span&gt;
- 
-   &lt;span class="article"&gt;
-     &lt;span class="article-header"&gt;
-       &lt;h1&gt;Title&lt;/h1&gt;
-     &lt;/span&gt;
-     &lt;span class="content"&gt;
-       Content...
-     &lt;/span&gt;
-   &lt;/span&gt;
- 
-  &lt;<b>span class="aside"</b>&gt;
-   Top links...
-  &lt;/span&gt;
-&lt;/span&gt;
-			</pre>
-              
+            <section class="middle emphasis bulleted">
+              <h2>Socket.IO abstract realtime techniques<br />like jQuery does for Ajax</h2>
+              <ul>
+                <li><a href="http://www.learnboost.com" target="_blank">LearnBoost</a> made</li>
+                <li><a href="http://socket.io/" target="_blank">Socket.IO Official Site</a></li>
+                <li><a href="http://github.com/LearnBoost/Socket.IO" target="_blank">Socket.IO-client Repository</a></li>
+                <li><a href="http://github.com/LearnBoost/Socket.IO-node" target="_blank">Socket.IO-server Repository</a></li>
+              </ul>
             </section>
           </div>
           
@@ -761,936 +666,158 @@
           </style>
           
           <div class="slide">
-            <section class="middle">
-              <img src="src/tags3.png" class="tags3"></img>
-            </section>
-          </div>
-
-          <div class = "slide">
-            <section class="middle emphasis">
-              <h1>Rich UI Updates</h1>
-            </section>
-          </div>
-          <div class = "slide">
-          <section class = "bulleted">
-            <ul>
-                <li>Audio / Video Elements </li>
-                <li>CSS3 Styles and Selectors</li>
-                <li>Canvas Element and Scalable Vector Graphics (SVG)</li>
-            </ul>
-            </section>
-          </div>
-          <div class = "slide">
             <header>
-                <h1>Audio & Video</h1>
+                <h1>Supported Transports</h1>
             </header>
             
-            <section>
-
-                <pre>&lt;h2&gt;New Divide - Linkin Park&lt;/h2&gt;<br />&lt;<b>audio</b> <b>src</b> = "src/New_Divide.ogg" <b>controls</b>&gt;&lt;/<b>audio</b>&gt;</pre>
-                
-                <h2>New Divide - Linkin Park</h2>
-                <audio src = "src/New_Divide.ogg" controls></audio>
-                
-                <pre>&lt;h2&gt;O3D - 3D Graphics API Demo Video&lt;/h2&gt;<br />&lt;<b>video</b> <b>src</b> = "http://www.youtube.com/demo/google_main.mp4" <b>controls</b> <b>autobuffer</b>/&gt;</pre>
-                <h2>O3D - 3D Graphics API Demo Video</h2>
-                <video src="http://www.youtube.com/demo/google_main.mp4"  controls autobuffer />
-            </section>
-          </div>
-          <div class = "slide">
-            <header>
-                <h1>CSS3</h1>
-            </header>
-
-            <section>
-                <pre>&lt;style&gt;<br />.shadow { <b>text-shadow: rgba(0, 0, 0, 0.5) 0 4px 4px;</b> } <br />&lt;/style&gt;<br /><br />&lt;p class = "shadow"&gt;Text with shadows&lt;/p&gt;</pre>
-                <p class = "shadow">Text with shadows</p>
-
-                <pre>&lt;style&gt;<br />.stroke<br />{<br />    <b>-webkit-text-fill-color: black;</b><br />    <b>-webkit-text-stroke-color: red;</b><br />    <b>-webkit-text-stroke-width: 1px;</b><br />}<br />&lt;/style&gt;<br /><br />&lt;p&gt;Add a &lt;span class = "stroke"&gt;stroke&lt;/span&gt; around your text&lt;/p&gt;</pre>
-                <p>Add a <span class = "stroke">stroke</span> around your text</p>
-            </section>
-          </div>
-
-           <div class = "slide">
-            <header>
-                <h1>CSS3 - Part 2</h1>
-            </header>
-            <section>
-             
-            <pre>&lt;style&gt;<br /><b>@font-face<br />{<br />    font-family: 'GiddyUp Std';<br />    src: url(src/GiddyupStd.otf);<br />}</b><br />.giddyup { font-family: 'GiddyUp Std'; }<br />&lt;/style&gt;<br /><br />&lt;p class = "giddyup"&gt;Embed your favorite fonts&lt;/p&gt;</pre>
-            <p class = "giddyup">Embed your favorite fonts</p>
-            </section>
-            </div>
-
-            <div class = "slide">
-                <header>
-                    <h1>CSS3 - Part 3</h1>
-                </header>
-             <section>
- 
-
-                    <pre>&lt;style&gt;<br />.rounded {<br />    <b>border-top-left-radius:50px;  border-bottom-left-radius:50px;<br />    border-top-right-radius:150px;  border-bottom-right-radius:0px;</b>  }<br />.rounded<b>:hover</b> { <br />    <b>border-top-left-radius:50px; border-bottom-left-radius:50px;<br />    border-top-right-radius:150px; border-bottom-right-radius:0px;</b>  }<br />.sunlight {<br />    width:300px; border:solid 1px #000; padding:30px 30px 30px 50px;<br /><b>    background: -webkit-gradient(radial, 300 50, 0, 300 50, 150, from(yellow), <br />    to(#fff));</b>  }<br />&lt;/style&gt;<br /><br />&lt;ul class = "rounded sunlight"&gt;<br />    &lt;li&gt;rounded corners&lt;/li&gt;<br />    &lt;li&gt;radial gradient background&lt;/li&gt;<br />    &lt;li&gt;hover over effect using CSS3 transitions&lt;/li&gt;<br />&lt;/ul&gt;</pre>
-
-                    <ul class = "rounded sunlight">
-                        <li>rounded corners</li>
-                        <li>radial gradient background</li>
-                        <li>hover over effect using CSS3 transitions</li>
-                    </ul>
-                </section>
-            </div>
-            <div class = "slide">
-               <header>
-                    <h1>CSS3 - Part 4</h1>
-                </header>
-             <section>
-                <pre>&lt;style&gt;<br />.sunlight.moonlight<br />{<br />    <b>-webkit-transition-property:all;<br />    -webkit-transition-duration:1.5s;</b><br />}<br />.sunlight.moonlight:<b>hover</b><br />{<br />    <b>background:-webkit-gradient(radial,60 30,0,60 30,50, from(#fff), to(#000));</b><br />    color:#fff;<br />}<br />&lt;/style&gt;<br /><br />&lt;ul class = "sunlight moonlight"&gt;
-    &lt;li&gt;same sunlight class&lt;/li&gt;
-    &lt;li&gt;moonlight hover over effect&lt;/li&gt;
-&lt;/ul&gt;</pre>
-                <ul class = "sunlight moonlight">
-                    <li>same sunlight class</li>
-                    <li>moonlight hover over effect</li>
-                </ul>
-             </section>
-        </div>
-         <div class = "slide">
-               <header>
-                    <h1>CSS3 - Part 5</h1>
-                </header>
-             <section>
-  
-
-                <pre>&lt;style&gt;<br />.windows-phone-7  {<br />    background:url(src/HTC-HD3.jpg) center center no-repeat;<br /><b>    background-size:100%;<br />    -webkit-transition-property:width,height;<br />    -webkit-transition-duration:1s;</b><br />}<br />.windows-phone-7<b>:hover</b> { width:280px; height:330px; }<br />&lt;/style&gt;<br /><br />&lt;div class = "windows-phone-7"&gt;&lt;/div&gt;</pre>
-                <h2>Enlarge an image with a transition</h2>
-                <div style = "margin-left:250px;width:280px;height:280px;background-color:#fff;overflow:hidden;">
-                <div class = "windows-phone-7"></div>
-                </div>
-
-             </section>
-        </div>
-        <div class = "slide">
-            <header>
-                <h1>Canvas</h1>
-            </header>
-            <section>
-                <pre><b>&lt;canvas id = "shapes" width="300" height="300"&gt;&lt;/canvas&gt;</b><br />&lt;script&gt;
-    <b>var rectCanvas = document.querySelector("#shapes"); </b><span style="color:Green">/// Get canvas object</span>
-    <b>var ctx = rectCanvas.getContext("2d"); </b><span style="color:Green">/// Get reference to canvas context</span>
-    <b>ctx.fillStyle = "rgb(200,0,0)"; </b><span style="color:Green">/// Create a red rectangle</span>
-    <b>ctx.fillRect(10, 10, 55, 50);</b>
-    <span style="color:Green">///add more rectangles</span>
-    <b>ctx.beginPath(); </b><span style="color:Green">/// start path for circle</span>
-    <b>ctx.arc(200, 90, 75, 0, Math.PI * 2, true);
-    ctx.closePath();
-    ctx.fill();</b>
-&lt;/script&gt;</pre>
-                <h2>Use scalable vector graphics (SVG) on your the new canvas element</h2>
-                <canvas id="shapes" width="300" height="300"></canvas>
-
-                <script>
-                    var rectCanvas = document.querySelector("#shapes");
-                    var ctx = rectCanvas.getContext("2d");
-
-                    ctx.fillStyle = "rgb(200,0,0)";
-                    ctx.fillRect(10, 10, 55, 50);
-
-                    ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
-                    ctx.fillRect(30, 30, 55, 50);
-
-                    ctx.fillStyle = "rgba(0, 200, 0, 0.5)";
-                    ctx.fillRect(50, 50, 55, 50);
-
-                    ctx.fillStyle = "rgba(0, 200, 200, 0.5)";
-                    ctx.fillRect(100, 100, 75, 75);
-
-                    ctx.fillStyle = "rgba(200, 0, 200, 0.5)";
-                    ctx.fillRect(150, 150, 100, 100);
-
-                    ctx.fillStyle = "rgba(200, 200, 0, 0.5)";
-                    ctx.beginPath();
-                    ctx.arc(200, 90, 75, 0, Math.PI * 2, true);
-                    ctx.closePath();
-                    ctx.fill();
-
-                </script>
-
-            </section>
-        </div>
-        <div class = "slide">
-            <header>
-                <h1>Canvas - Part 2</h1>
-            </header>
-            <section>
-            <pre><b>&lt;canvas id = "bouncyball" width="300" height="300"&gt;&lt;/canvas&gt;</b><br />
-&lt;script&gt;
-<span style = "color:Green">/// The javascript is a bit too long to fit here. 
-/// But, we will include in the demo code!</span>
-&lt;/script&gt;
-</pre>
-
-            <h2>Create animations in your canvas</h2>
-                <canvas id="bouncyball" width="300" height="300"></canvas>
-                <script>
-
-                    var x = 250;
-                    var y = 250;
-                    var dx = 2;
-                    var dy = 4;
-                    var ctx;
-                    var WIDTH;
-                    var HEIGHT;
-
-                    function circle(x, y, r) {
-                        ctx.beginPath();
-                        ctx.arc(x, y, r, 0, Math.PI * 2, true);
-                        ctx.closePath();
-                        ctx.fill();
-                    }
-
-                    function rect(x, y, w, h) {
-                        ctx.beginPath();
-                        ctx.rect(x, y, w, h);
-                        ctx.closePath();
-                        ctx.fill();
-                    }
-
-                    function clear() {
-                        ctx.clearRect(0, 0, WIDTH, HEIGHT);
-                    }
-
-                    function init() {
-                        var canvas = document.querySelector("#bouncyball");
-                        ctx = canvas.getContext("2d");
-                        WIDTH = canvas.getAttribute("width");
-                        HEIGHT = canvas.getAttribute("height");
-                        return setInterval(draw, 10);
-                    }
-
-                    function draw() {
-                        clear();
-                        circle(x, y, 20);
-
-                        if (x + dx > WIDTH || x + dx < 0)
-                            dx = -dx;
-                        if (y + dy > HEIGHT || y + dy < 0)
-                            dy = -dy;
-
-                        x += dx;
-                        y += dy;
-                    }
-
-
-                    init();
-
-                </script> 
-            </section>
-        </div>
-          <div class="slide">
-            <section class="middle emphasis">
-              <h1>Cool new stuff for web apps!</h1>
-            </section>
-          </div>
-          <div class="slide">
-			<style>
-		    	section.bulleted ul li {
-		          margin-top: -5px;
-		          font-size: 40px;
-		          letter-spacing: -1px;
-				  list-style: square;
-		        }
-		    </style>
-            
-            <section class="bulleted">
+            <section class="middle emphasis bulleted">
               <ul>
-                <li>Cross Document Messaging</li>
-                <li>Local/Offline Web Storage</li>
-                <li>Geolocation</li>
-                <li>Web Sockets</li>
+                <li>Web Socket</li>
+                <li>Adobe Flash Socket</li>
+                <li>ActiveX HTMLFile (IE)</li>
+                <li>XHR with Multipart Encoding</li>
+                <li>XHR with Long-Polling</li>
+                <li>JSONP Polling (for cross-domain)</li>
+                <li></li>
               </ul>
             </section>
           </div>
-          
+		  
           <div class="slide">
             <header>
-              <h1>Cross Document Messaging</h1>
+                <h1>Supported Browsers</h1>
             </header>
-            <section>
-            <p>Here is a specific scenario.  We need to access a Web Service.  We can't make an AJAX call directly because the Web Service is on another domain.</p>
-                <p>Instead we can <b>post a message</b> to a page running on the same domain as our Web Service and get our result.</p>
-                <h2>Client Code (http://edsiok.com)</h2>
-            <pre>
-&lt;iframe id="iframe1" src="http://davearlin.com/page.html" style="display:none"/&gt;
-&lt;input id = "name-text" type="text" valeu = "dave" /&gt;
-&lt;input type = "button" value = "Validate" onclick = "ValidateUser();" /&gt;
-&lt;script&gt;
-    var iframe = document.getElementById('iframe1').contentWindow;
-    function ValidateUser() {
-        var name = document.getElementById('name-text').value;
-        <b>iframe.postMessage(name, "http://davearlin.com/page.html");</b>
-    }
-    <b>window.addEventListener("message", function (e) {
-            if (e.data == 'true') { ShowValidMessage(); }
-            else { ShowInvalidMessage(); }
-        }, false);</b>
-&lt;/script&gt;
-            </pre>
-              <div style = "float:left">  
-              <input id = "name-text" type = "text" value = "dave"  /><input type = "button" value = "Validate" onclick = "ValidateUser();" />
-              </div>
-              <p id = "name-valid" style= "float:left; margin-top:2px;margin-left:10px;"></p>
-              <div style="clear:both;"></div>
+            
+            <section class="middle emphasis bulleted">
+              <ul>
+                <li>Internet Explorer 5.5 ~ 8</li>
+                <li>Safari 3 ~ 5</li>
+                <li>Google Chrome 4 ~ 6</li>
+                <li>Firefox 3 ~ 4</li>
+                <li>Opera 10.61</li>
+                <li>iPhone Safari</li>
+                <li>iPad Safari</li>
+                <li>Android Webkit</li>
+                <li>WebOs Webkit</li>
+              </ul>
             </section>
-            <iframe id = "validationdomainiframe" src = "http://davearlin.com/TestAJAXSameDomain.aspx" style="display:none"></iframe>
           </div>
 
-          <script>
-              var validationiframe;
-              window.onload = function () { validationiframe = document.getElementById('validationdomainiframe').contentWindow; }
-              function ValidateUser() {
-                  var name = document.getElementById('name-text').value;
-                  validationiframe.postMessage(name, "http://davearlin.com/TestAJAXSameDomain.aspx"); //
-              }
-
-              window.addEventListener("message",
-                function (e) {
-                    if (e.data == 'true') {
-                        document.getElementById('name-valid').innerHTML = 'The name you entered is: <span style = "color:Green;"><b>Valid</b></span>';
-                    }
-                    else {
-                        document.getElementById('name-valid').innerHTML = 'The name you entered is: <span style = "color:Red;"><b>Invalid</b></span>';
-                    }
-                }, false);
-
-          </script>
-          
-          <div class="slide">
+          <div class = "slide">
             <header>
-              <h1>Cross Document Messaging - Part 2</h1>
+                <h1>How to use : Client</h1>
             </header>
-            <section>
-                <h2>Server Code (http://davearlin.com/page.html)</h2>
+            
+            <section class="middle emphasis">
+                <pre>&lt;script src="http://cdn.socket.io/stable/socket.io.js"&gt;&lt;/script&gt;<br />or<br />&lt;script src="socket.io/socket.io.js"&gt;&lt;/script&gt;</pre>
+                
+				<pre>
+					<b>var socket = new io.Socket(null);</b> <span style="color:Green">// null is localhost</span>
+					<b>socket.connect();
+					socket.on('connect', function(){</b>
+					    <span style="color:Green">// connected!</span>
+					<b>});
+					socket.on('message', function(msg){</b>
+					    <span style="color:Green">// message coming</span>
+					<b>});
+					socket.send('Hello world!');</b>
+				</pre>
+            </section>
+          </div>
+          <div class = "slide">
+            <header>
+                <h1>io.Socket() Object property</h1>
+            </header>
+
+            <section class="middle emphasis bulleted">
+            	<button id="client-view">View</button>
+            	<button id="client-connect">Connect</button>
+                <ul>
+                	<li>dummy</li>
+                	<li>dummy</li>
+                </ul>
+            </section>
+          </div>
+		  
+		  <div class = "slide">
+            <header>
+                <h1>How to use : Server</h1>
+            </header>
+            
+            <section class="middle emphasis">
+                <pre>&lt;script src="http://cdn.socket.io/stable/socket.io.js"&gt;&lt;/script&gt;<br />or<br />&lt;script src="socket.io/socket.io.js"&gt;&lt;/script&gt;</pre>
+                
+				<pre>
+					<b>var http = require("http"),
+					       io = require("./path/to/socket.io"),
+					       server = http.createServer(function(req, res) {});
+					   server.listen(8080, null);
+					
+					   var socket = io.listen(server);
+					   socket.on("connection", function(client) {
+					       client.on("message", function(msg) {
+					           client.send({ msg: msg });
+					  		   client.broadcast({ msg: "broadcasted" });
+					       });
+					       client.on("disconnect", function() {
+					       });
+					   });</b>
+				</pre>
+            </section>
+          </div>
+		  
+		  <div class = "slide">
+            <header>
+                <h1>Communication with Server</h1>
+            </header>
+            
+            <section class="middle emphasis">
+            	<p>Client Code</p>
+                <pre>socket.send("Hi!!");</pre>
+            	<p>Server Code</p>
                 <pre>
-&lt;script type="text/javascript"&gt;
-    var baseUrl = "http://davearlin.com/UserMessageService.asmx";
-
-    function validateUser(username, event) {
-        var postData = username;
-        $.ajax({
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            url: baseUrl + "/ValidateUser",
-            data: '{ userId: "' + postData + '" }',
-            dataType: "json",
-            success: function (msg) {
-                <b>event.source.postMessage(msg.d.toString(), event.origin);</b>
-            }
-        });
-    }
-
-    <b>window.addEventListener("message",
-    function (e) {
-        validateUser(e.data, e);
-    }, false);</b>
-&lt;/script&gt;
+                	client.on("message", function(msg) {
+					  client.send({ msg: msg });
+				    });
                 </pre>
-            </section>
-        </div>
-          <div class="slide">
-			<style>
-		    	#ta {
-		        	width: 300px;
-		        	height: 150px;
-		        	display: inline;
-		        }
-		        #unsaved {
-              width: 300px;
-              height: 150px;
-              display: inline;
-            }
-		        #localstorage-message {
-		           padding-top: 50px;
-		        }
-		        .textareas {
-              margin-top: 20px;
-            }
-		    </style>
-            
-            <header>
-              <h1>Web Storage</h1>
-            </header>
-            <section>
-		<pre>
- // use localStorage for persistent storage
- // use sessionStorage for per tab storage
- textarea.addEventListener('keyup', function () {
-   window.<b>localStorage</b>['value'] = area.value;
-   window.<b>localStorage</b>['timestamp'] = (new Date()).getTime();
- }, false);
-textarea.value = window.<b>localStorage</b>['value'];
-		</pre>
-              
-              <p id="localstorage-message">Save text value on the client side (crash-safe)</p>
-              <section class="textareas">
-                <textarea id="ta" placeholder="Type your text here..."></textarea>
-                <textarea id="unsaved" placeholder="This text is not saved..."></textarea>
-              </section>
-              <button id="save-ta">Save</button>
-              <p id="ta-log"></p>
-		<script>
-		    var area = document.querySelector('#ta');
-		    // place content from previous edit
-		    if (!area.value) {
-		        area.value = window.localStorage.getItem('value');
-		    }
-		    updateLog(false);
-
-		    // your content will be saved locally
-		    document.querySelector('#save-ta').addEventListener('click', function () {
-		        window.localStorage.setItem('value', area.value);
-		        window.localStorage.setItem('timestamp', (new Date()).getTime());
-		        updateLog(true);
-		    }, false);
-
-		    function updateLog(new_save) {
-		        var log = document.querySelector("#ta-log");
-		        var delta = 0;
-		        if (window.localStorage.getItem('value')) {
-		            delta = ((new Date()).getTime() - (new Date()).setTime(window.localStorage.getItem('timestamp'))) / 1000;
-		            if (new_save) {
-		                log.textContent = 'Saved. Content will be available after browser refresh/reopen.';
-		                setTimeout(function () {
-		                    log.textContent = '';
-		                }, 3000);
-		            } else {
-		                log.textContent = 'last saved: ' + delta + 's ago';
-		            }
-		        }
-		    }
- 
-		</script>
-              
+				<div class="center">
+	                <div id="send-log">
+	                </div>
+					<input id="send-text" type="text" value="" /><input type="button" value="Send" onclick="sendToServer();" />
+	            </div>
+            	<p>Client Code</p>
+                <pre>socket.send("Hi!!");</pre>
+            	<p>Server Code</p>
+                <pre>
+                	client.on("message", function(msg) {
+					  client.broadcast({ msg: "broadcasted" });
+				    });
+                </pre>
+				<div class="center">
+	                <div id="broad-log">
+	                </div>
+	                <input id="broad-text" type="text" value="" /><input type="button" value="Send" onclick="sendForBroadCase();" />
+	            </div>
+				
+				<script>
+					var sendToServer = function() {
+						
+					}
+					
+					var sendForBroadCase = function() {
+						
+					}
+				</script>
             </section>
           </div>
-          <div class="slide">
-				          <style>
-				            .record-list li:nth-child(odd) { background-color: #eee; }
-				            .record-list li:nth-child(even) { background-color: #ddd; }
-				            #db-results {
-				              max-height: 150px;
-				              overflow: auto;
-				              text-align: left;
-				            }
-				          </style>
-            
-            <header>
-              <h1>Web SQL Database</h1>
-            </header>
-            <section>
-<pre>var db = window.<b>openDatabase</b>("Database Name", "Database Version");
-db.<b>transaction</b>(function(tx) {
-tx.<b>executeSql</b>(<em>"SELECT * FROM test"</em>, [], successCallback, errorCallback);
-});
-</pre>
-              
-              <div class="center">
-                <ul class="record-list" id="db-results">
-                </ul>
-                <div id="db-log">
-                </div>
-                <input type="text" id="todoitem" /> <button onclick="newRecord()">new to do item</button> <button onclick="createTable()">create table</button> <button onclick="dropTable()">drop table</button>
-                <p>See the generated database: Developer> Developer Tools> Storage</p>
-              </div>
-				          <script>
-				              var db;
-				              var log = document.getElementById('db-log');
-				              if (window.openDatabase) {
-				                  db = openDatabase("DBTest", "1.0", "HTML5 Database API example", 200000);
-				                  showRecords();
-				              }
-				              document.getElementById('db-results').addEventListener('click', function (e) { e.preventDefault(); }, false);
-
-				              function onError(tx, error) {
-				                  log.innerHTML += '<p>' + error.message + '</p>';
-				              }
-
-				              // select all records and display them
-				              function showRecords() {
-				                  document.getElementById('db-results').innerHTML = '';
-				                  db.transaction(function (tx) {
-				                      tx.executeSql("SELECT * FROM Table1Test", [], function (tx, result) {
-				                          for (var i = 0, item = null; i < result.rows.length; i++) {
-				                              item = result.rows.item(i);
-				                              document.getElementById('db-results').innerHTML +=
-				                        '<li><span contenteditable="true" onkeyup="updateRecord(' + item['id'] + ', this)">' +
-				                        item['text'] + '</span> <a href="#" onclick="deleteRecord(' + item['id'] + ')">[Delete]</a></li>';
-				                          }
-				                      });
-				                  });
-				              }
-
-				              function createTable() {
-				                  db.transaction(function (tx) {
-				                      tx.executeSql("CREATE TABLE Table1Test (id REAL UNIQUE, text TEXT)", [],
-				                    function (tx) { log.innerHTML = '<p>Table1Test created!</p>' },
-				                    onError);
-				                  });
-				              }
-
-				              // add record with random values
-				              function newRecord() {
-				                  var num = Math.round(Math.random() * 10000); // random data
-				                  db.transaction(function (tx) {
-				                      tx.executeSql("INSERT INTO Table1Test (id, text) VALUES (?, ?)", [num, document.querySelector('#todoitem').value],
-				                    function (tx, result) {
-				                        log.innerHTML = '';
-				                        showRecords();
-				                    },
-				                    onError);
-				                  });
-				              }
-
-				              function updateRecord(id, textEl) {
-				                  db.transaction(function (tx) {
-				                      tx.executeSql("UPDATE Table1Test SET text = ? WHERE id = ?", [textEl.innerHTML, id], null, onError);
-				                  });
-				              }
-
-				              function deleteRecord(id) {
-				                  db.transaction(function (tx) {
-				                      tx.executeSql("DELETE FROM Table1Test WHERE id=?", [id],
-				                    function (tx, result) { showRecords() },
-				                    onError);
-				                  });
-				              }
-
-				              // delete table from db
-				              function dropTable() {
-				                  db.transaction(function (tx) {
-				                      tx.executeSql("DROP TABLE Table1Test", [],
-				                    function (tx) { showRecords() },
-				                    onError);
-				                  });
-				              }
-				          </script>
-              
-            </section>
-          </div>
-          
-          
-          <div class="slide">
-            <header>
-              <h1>Mobile Geolocation Demo</h1>
-            </header>
-            <section class="middle">
-              <p>Open this link from your mobile device (iPhone preferred)</p>
-              <h2><a href="http://bit.ly/brJYOc" target="_blank">http://bit.ly/brJYOc</a></h2>
-            </section>
-          </div>
-          
-          <div class="slide">
-            <section class="bulleted">
-              <header>
-                <h1>Other cool stuff:</h1>
-              </header>
-              <ul>
-                <li>Improved javascript selectors</li>
-                <li>Better standardization across browsers (Incl. the DOM)</li>
-                <li>Notifications</li>
-                <li>Drag &amp; Drop</li>
-              </ul>
-            </section>
-          </div>
-          
-          <div class="slide">
-            <section class="middle emphasis">
-              <h1>Web Form Improvements!</h1>
-            </section>
-          </div>
-          
-          <div class="slide">
-            <header><span class="html">HTML</span>
-              <h1>Placeholder Text</h1>
-            </header>
-            <section>
-            <style>
-            [required] {
-              background-color: lightyellow;
-            }
-            :invalid {
-              background-color: red;
-            }
-            .form-inputs {
-              font-size: 80%;
-            }
-            .form-inputs input {
-              padding: 2px;
-            }
-            </style>
-<pre class="form-inputs">
-&lt;input type="<b>tel</b>" placeholder="(555) 555-5555" /&gt;
-<input type="tel" placeholder="(555) 555-5555" pattern="^\(?\d{3}\)?[-\s]\d{3}[-\s]\d{4}.*?$" />
-</pre>
-
-<pre class="form-inputs">
-&lt;script&gt;
-var phone = document.getElementById('phonedemo');
-if(phone.value == "")
-{
-  phone.value = phone.getAttribute("default");
-}
-
-phone.onfocus = function ()
-{
-  if(this.value == this.getAttribute("default")){
-    this.value = "";
-  };
-}
-
-phone.onblur = function()
-{
-  if(this.value == ""){
-    this.value = this.getAttribute("default");
-  }
-}
-&lt;/script&gt;
-
-&lt;input type="<b>tel</b>" default="(555) 555-5555" /&gt;
-<input id="phonedemo" type="tel" default="(555) 555-5555" />
-</pre>
-              <script>
-                  var phone = document.getElementById('phonedemo');
-                  if (phone.value == "") {
-                      phone.value = phone.getAttribute("default");
-                  }
-
-                  phone.onfocus = function () {
-                      if (this.value == this.getAttribute("default")) {
-                          this.value = "";
-                      };
-                  }
-
-                  phone.onblur = function () {
-                      if (this.value == "") {
-                          this.value = this.getAttribute("default");
-                      }
-                  }
-              </script>
-            </section>
-          </div>
-          
-          
-          <div class="slide">
-            <header><span class="html">HTML</span>
-              <h1>Form Validation</h1>
-            </header>
-            <section>
-
-            <pre class="form-inputs">
-&lt;style&gt;
-  [required] { background-color: lightyellow; }
-  :invalid { background-color: red; }
-&lt;/style&gt;
- 
-&lt;input type="text" <b>required</b> /&gt;<input type="text" required />
-&lt;input type="<b>email</b>" value="some@email.com" /&gt; <input type="email" value="some@email.com" />
-&lt;input type="<b>date</b>" <b>min</b>="2010-08-14" <b>max</b>="2011-08-14" value="2010-08-14"/&gt; <input type="date" min="2010-08-14" max="2011-08-14" value="2010-08-14" />
-</pre>
-            
-            </section>
-          </div>
-          
-          
-          <div class="slide">
-            <header>
-              <h1>Form Demo</h1>
-            </header>
-            <section class="middle">
-              <p>Try this cool demo:</p>
-              <h2><a href="http://bit.ly/cGNgub" target="_blank">http://bit.ly/cGNgub</a></h2>
-            </section>
-          </div>
-          
-          
-          <div class="slide">
-            <header><span class="html">HTML</span>
-              <h1>Additional Input/Form Elements</h1>
-            </header>
-            <section>
-
-            <pre class="form-inputs">
-&lt;input type="<b>range</b>" <b>min</b>="0" <b>max</b>="50" value="10" /&gt; <input  type="range" min="0" max="50" value="10" />
-
-&lt;<b>meter</b> <b>min</b>="0" <b>max</b>="100" <b>low</b>="40" <b>high</b>="90" <b>optimum</b>="100" value="91"&gt;A+&lt;/<b>meter</b>&gt;
-
-Your score is: <meter value="91" min="0" max="100" low="40" high="90" optimum="100">A+</meter>
-&lt;<b>progress</b>&gt;working...&lt;/<b>progress</b>&gt;
-
-Download is: <progress>working...</progress>
-
-&lt;<b>progress</b> value="75" <b>max</b>="100"&gt;3/4 complete&lt;/<b>progress</b>&gt;
-
-Goal is: <progress value="75" max="100">3/4 complete</progress>
-</pre>
-              
-            </section>
-          </div>
-          
-      
-          <div class="slide">
-            <header><span class="html">HTML</span>
-              <h1>Canvas</h1>
-            </header>
-            <section>
-            <style>
-              #canvas-area {
-                background: white;
-                -webkit-border-radius: 8px;
-                -khtml-border-radius: 8px;
-                -moz-border-radius: 8px;
-                border-radius: 8px;
-                border: 1px solid #bbb;
-              }
-            </style>
-            <pre>&lt;canvas id="canvas" width="838" height="220"&gt;&lt;/canvas&gt;
- 
-&lt;script&gt;
-  var canvasContext = document.getElementById("canvas").<b>getContext</b>("2d");
-  canvasContext.<b>fillRect</b>(250, 25, 150, 100);
-  
-  canvasContext.<b>beginPath</b>();
-  canvasContext.<b>arc</b>(450, 110, 100, Math.PI * 1/2, Math.PI * 3/2);
-  canvasContext.<b>lineWidth</b> = 15;
-  canvasContext.<b>lineCap</b> = 'round';
-  canvasContext.<b>strokeStyle</b> = 'rgba(255, 127, 0, 0.5)';
-  canvasContext.<b>stroke</b>();
-&lt;/script&gt;
-            </pre>
-               <canvas id="canvas-area" width="838" height="225"></canvas>
-            <script>
-                var canvasContext = document.getElementById("canvas-area").getContext("2d");
-                canvasContext.fillRect(250, 25, 150, 100);
-                canvasContext.beginPath();
-                canvasContext.arc(450, 110, 100, Math.PI * 1 / 2, Math.PI * 3 / 2, false);
-                canvasContext.lineWidth = 15;
-                canvasContext.lineCap = 'round';
-                canvasContext.strokeStyle = 'rgba(255, 127, 0, 0.5)';
-                canvasContext.stroke();
-            </script>
-              
-            </section>
-          </div>
-          
-          
-          <div class="slide">
-            <header>
-              <h1>Canvas Demos</h1>
-            </header>
-            <section class="middle">
-              <p>Canvas Demos:</p>
-              <h2><a href="http://hakim.se/experiments" target="_blank">          http://hakim.se/experiments</a></h2>
-            </section>
-          </div>
-          
-          <!--    
-          <div class="slide force-render">
-          <style>
-            #canvas-example {
-              margin-left: 150px;
-              margin-top: 40px;
-              padding: 0;
-              width: 520px;
-              height: 500px;
-            }
-            #canvas-example iframe {
-              width: 520px;
-              height: 500px;
-              border: none;
-              background: white;
-            }
-          </style>
-            
-            <header><span class="html">HTML</span>
-              <h1>Canvas example</h1>
-            </header>
-            <section>
-              <div id="canvas-example" class="example"> <iframe src="src/canvasphoto/index.html" scrolling="no"></iframe>
-              </div>
-            </section>
-          </div>
-          <div class="slide force-render">
-          <style>
-            #webgl-iframe {
-              border: none;
-              width: 100%;
-              height:352px;
-            }
-          </style>
-            
-            <header><span class="html">HTML</span>
-              <h1>Canvas 3D (WebGL)</h1>
-            </header>
-            <section>
-            <pre>&lt;canvas id="canvas" width="838" height="220"&gt;&lt;/canvas&gt;
- 
-&lt;script&gt;
-  var gl = document.getElementById("canvas").<b>getContext</b>("experimental-webgl");
-  gl.<b>viewport</b>(0, 0, canvas.width, canvas.height);
-  ...
-&lt;/script&gt;
-            </pre>
-               <iframe scrolling="no" src="src/webgl/san_angeles.html" id="webgl-iframe"></iframe>
-            </section>
-          </div>
-          <div class="slide force-render">
-            <header><span class="html">HTML</span>
-              <h1>SVG in HTML5</h1>
-            </header>
-            <section>
-            <style>
-              #svg {
-                -webkit-border-radius: 8px;
-                -khtml-border-radius: 8px;
-                -moz-border-radius: 8px;
-                border-radius: 8px;
-                border: 1px solid #bbb;
-              }
-            </style>
-              
-            <pre>&lt;html&gt;
-  <b>&lt;svg&gt;
-    &lt;circle id="myCircle" class="important" cx="50%" cy="50%" r="100" 
-        fill="url(#myGradient)"
-        onmousedown="alert('hello');"/&gt;
-  &lt;/svg&gt;</b>
-&lt;/html&gt;</pre>
-              
-              <div class="svg">
-              </div>
-          <script>
-            // insert SVG using script until SVG in HTML5 is more widely supported
-            // (currently supported in IE 9 and Firefox nightlies only)
-            window.addEventListener('DOMContentLoaded', function() {
-              var container = document.getElementsByClassName('svg')[0];
-              var svgns = 'http://www.w3.org/2000/svg';
-              var svg = document.createElementNS(svgns, 'svg');
-              svg.setAttribute('width', '300px');
-              svg.setAttribute('height', '300px');
-              
-              // our linearGradient
-              var defs = document.createElementNS(svgns, 'defs');
-              var gradient = document.createElementNS(svgns, 'linearGradient');
-              gradient.setAttribute('id', 'myGradient');
-              gradient.setAttribute('x1', '0%');
-              gradient.setAttribute('y1', '100%');
-              gradient.setAttribute('x2', '100%');
-              gradient.setAttribute('y2', '0%');
-              var stop = document.createElementNS(svgns, 'stop');
-              stop.setAttribute('offset', '5%');
-              stop.setAttribute('stop-color', 'red');
-              gradient.appendChild(stop);
-              stop = document.createElementNS(svgns, 'stop');
-              stop.setAttribute('offset', '95%');
-              stop.setAttribute('stop-color', 'blue');
-              stop.setAttribute('stop-opacity', '0.5');
-              gradient.appendChild(stop);
-              defs.appendChild(gradient);
-              svg.appendChild(defs);
-              
-              // our example circle
-              var circle = document.createElementNS(svgns, 'circle');
-              circle.setAttribute('cx', '50%');
-              circle.setAttribute('cy', '50%');
-              circle.setAttribute('r', 100);
-              circle.setAttribute('fill', 'url(#myGradient)');
-              circle.setAttribute('stroke-color', 'red');
-              circle.addEventListener('mousedown', function() {
-                alert('hello');
-              }, false);
-              svg.appendChild(circle);
-              container.appendChild(svg);
-            }, false);
-          </script>
-              
-            </section>
-          </div>
-          
-          
-          
-          
-          <div class="slide">
-          <style>
-            span.space {
-              padding: 0 5px;
-            }
-          </style>
-            
-            <header>
-              <h1>Chrome Frame</h1>
-            </header>
-            <section>
-              <ul class="bullets">
-                <li>Minimal effort for bringing IE6, 7 and 8 up to the latest HTML5 technologies</li>
-                <li>Two ways to get your websites ready for Chrome Frame:</li>
-              </ul>
-              <p>Client side:</p>
-      			<pre>&lt;meta http-equiv="X-UA-Compatible" content="chrome=1"></pre>
-              
-              <p>Server side:</p>
-      			<pre>X-UA-Compatible: chrome=1</pre>
-              
-              <p style="font-size: 30px"> Try to load this presentation in IE! </p>
-            </section>
-          </div>
-          <div class="slide">
-          <style>
-            p.resource-link {
-              font-size: 40px;
-            }
-            p.resource-link a {
-              color: blue;
-              text-decoration: underline;
-              border: none;
-            }
-          </style>
-            
-            <section class="middle formula"> HTML5 ~= <span class="html">HTML</span> + <span class="css">CSS</span> + <span class="js">JS APIs</span>
-              <p> HTML5 <em class="stroke">=</em> Next Generation Features for Modern Web Development </p>
-              <p class="resource-link"> <a href="http://slides.html5rocks.com">http://slides.html5rocks.com</a> <a href="http://www.html5rocks.com">http://www.html5rocks.com</a> </p>
-            </section>
-          </div>-->
-          
-          
-          <div class="slide">
-            <section class="middle emphasis">
-              <h1>Issues &amp; Concerns</h1>
-            </section>
-          </div>
-          
-          <div class="slide">
-            <section class="bulleted">
-              <header>
-                <h1>Backwards Compatibility Strategy:</h1>
-              </header>
-              <ul>
-                <li>Feature Detection</li>
-                <li>Many features fallback gracefully (form elements)</li>
-                <li>Javascript implementations of HTML5 when necessary</li>
-                <li>Scripts like <a href="http://www.modernizr.com/" target="_blank">modernizr</a></li>
-                <li>Google Chrome Frame</li>
-              </ul>
-            </section>
-          </div>
-          
-          <div class="slide">
-            <section class="bulleted">
-              <header>
-                <h1>Other cool items we didn't have time to cover</h1>
-              </header>
-              <ul>
-                <li>(history).pushstate Javascript API</li>
-                <li>Cache manifest - Offline apps</li>
-                <li>Web workers</li>
-              </ul>
+		  
+		  <div class="slide">
+            <section class="middle emphasis bulleted">
+			  <h1>Thank You!</h1>
+			  <p>All source code for this Slide is in <a href="http://github.com/outsideris/Socket.IO-Slide" target="_blank">GitHub</a></p>
+              <h2><a href="http://blog.outsider.ne.kr" target="_blank">Outsider</a></h2>
+              <h2>outsideris@gmail.com</h2>
+              <h2>@Outsider__</h2>
             </section>
           </div>
           
