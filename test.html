@@ -18,6 +18,9 @@
 				}
 				if (!socket.connected) {
 					socket.connect();
+					socket.on('connect', function(){
+					   console.log("connected");
+					});
 					socket.on('message', function(msg){
 						console.log(msg);
 					});
