@@ -419,7 +419,7 @@
       }
       
       .css,
-      .js,
+	  .property,
       .html,
       .key {
         font-family: 'Droid Sans';
@@ -446,7 +446,7 @@
       .key { font-family: Arial; }
       
       :not(header) > .css,
-      :not(header) > .js,
+      :not(header) > .property,
       :not(header) > .html,
       :not(header) > .key {
         margin: 0 5px;
@@ -458,7 +458,7 @@
         background-color: #ff4;
         background: -moz-linear-gradient(left top, #ff4, #ffa);
       }
-      .js {
+      .property {
         background: -webkit-gradient(linear, left top, left bottom, from(#4f4), to(#afa));
         background-color: #4f4;
         background: -moz-linear-gradient(left top, #4f4, #afa);
@@ -480,6 +480,7 @@
       }
  
       .stroke {
+		font-size: 30px;
         -webkit-text-stroke-color: red;
         -webkit-text-stroke-width: 1px;
       } /* currently webkit-only */
@@ -532,6 +533,7 @@
             <p>Slide framework created by google</p>
           </section>
         </div>
+		
         <div class="slide">
           <style>
             .intro h1, .intro h2 {
@@ -558,6 +560,7 @@
             <h2>in <a href="http://frends.kr" target="_blank">FRENDS</a></h2>
           </section>
         </div>
+		
         <div class="slide">
 			<style>
 	            .emphasis h1, .emphasis h2 {
@@ -593,7 +596,7 @@
 		          letter-spacing: -1px;
 				  list-style: square;
 				  text-align: left;
-				  margin-left: 100px;
+				  margin-left: 200px;
 		        }
 		    </style>
             <section class="middle emphasis bulleted">
@@ -601,7 +604,7 @@
 			  <h1>Polling has disadvantages.</h1>
               <ul>
                 <li>Latency (Interval time)</li>
-                <li>inefficient traffic</li>
+                <li>Inefficient Traffic</li>
               </ul>
             </section>
           </div>
@@ -650,6 +653,7 @@
           </div>
           
           <div class="slide">
+          	
             <section class="middle emphasis bulleted">
               <h2>Socket.IO abstract realtime techniques<br />like jQuery does for Ajax</h2>
               <ul>
@@ -661,16 +665,23 @@
             </section>
           </div>
           
-          <style>
-          img.tags3 { height: 700px; }
-          </style>
-          
           <div class="slide">
+          	<style>
+		    	section.bulleted-many ul li {
+		          margin-top: -5px;
+		          font-size: 40px;
+		          letter-spacing: -1px;
+				  list-style: square;
+				  text-align: left;
+				  margin-left: 150px;
+				  line-height: 40px;
+		        }
+		    </style>
             <header>
                 <h1>Supported Transports</h1>
             </header>
             
-            <section class="middle emphasis bulleted">
+            <section class="middle emphasis bulleted-many">
               <ul>
                 <li>Web Socket</li>
                 <li>Adobe Flash Socket</li>
@@ -678,7 +689,6 @@
                 <li>XHR with Multipart Encoding</li>
                 <li>XHR with Long-Polling</li>
                 <li>JSONP Polling (for cross-domain)</li>
-                <li></li>
               </ul>
             </section>
           </div>
@@ -688,7 +698,7 @@
                 <h1>Supported Browsers</h1>
             </header>
             
-            <section class="middle emphasis bulleted">
+            <section class="middle emphasis bulleted-many">
               <ul>
                 <li>Internet Explorer 5.5 ~ 8</li>
                 <li>Safari 3 ~ 5</li>
@@ -708,34 +718,94 @@
                 <h1>How to use : Client</h1>
             </header>
             
-            <section class="middle emphasis">
-                <pre>&lt;script src="http://cdn.socket.io/stable/socket.io.js"&gt;&lt;/script&gt;<br />or<br />&lt;script src="socket.io/socket.io.js"&gt;&lt;/script&gt;</pre>
-                
+            <section class="emphasis">
+                <pre><b>&lt;script src="http://cdn.socket.io/stable/socket.io.js"&gt;&lt;/script&gt;</b><br /><br />or<br /><br /><b>&lt;script src="socket.io/socket.io.js"&gt;&lt;/script&gt;</b></pre>
+                <br />
 				<pre>
-					<b>var socket = new io.Socket(null);</b> <span style="color:Green">// null is localhost</span>
-					<b>socket.connect();
-					socket.on('connect', function(){</b>
-					    <span style="color:Green">// connected!</span>
-					<b>});
-					socket.on('message', function(msg){</b>
-					    <span style="color:Green">// message coming</span>
-					<b>});
-					socket.send('Hello world!');</b>
+<b>var socket = new io.Socket(null);</b> <span style="color:Green">// null is localhost</span>
+<b>socket.connect();</b> <span style="color:Green">// Establishes a connection</span><br/>
+<b>socket.on('connect', function(){</b> <span style="color:Green">// regist listener for connected</span>
+    <span style="color:Green">// connected!</span>
+<b>});
+socket.on('message', function(msg){</b> <span style="color:Green">// regist listener for receiving a message</span>
+    <span style="color:Green">// message coming</span>
+<b>});</b>
+<b>socket.on('disconnect', function(){</b> <span style="color:Green">// regist listener for disconnected</span>
+    <span style="color:Green">// disconnected!</span>
+<b>});</b><br/>
+<b>socket.send('Hello world!');</b> <span style="color:Green">// send a message to server</span>
+<b>socket.disconnect();</b> <span style="color:Green">// Closes the connection</span>
 				</pre>
             </section>
           </div>
           <div class = "slide">
+          	<style>
+		    	section.bulleted-small ul li {
+		          margin-top: -10px;
+		          font-size: 30px;
+		          letter-spacing: -1px;
+				  list-style: square;
+				  text-align: left;
+				  margin-left: 150px;
+				  line-height: 20px;
+		        }
+		    </style>
             <header>
                 <h1>io.Socket() Object property</h1>
             </header>
 
-            <section class="middle emphasis bulleted">
-            	<button id="client-view">View</button>
-            	<button id="client-connect">Connect</button>
-                <ul>
-                	<li>dummy</li>
-                	<li>dummy</li>
+            <section class="middle emphasis bulleted-small">
+            	<button id="client-show" onclick="showProperty();">Show</button>
+            	<button id="client-clear" onclick="clearPropertyList();">ClearList</button>
+            	<button id="client-connect" onclick="connectToServer();">Connect</button>
+            	<button id="client-disconnect" onclick="disconnectToServer();">Disconnect</button>
+				
+				<span id="client-log" class="stroke"></span>
+				
+                <ul id="client-property-list">
                 </ul>
+				
+				<script src="socket.io/socket.io.js"></script>
+				<script>
+					var socket = new io.Socket(null);
+					var showProperty = function() {
+						var tempContents = "";
+						tempContents += "<li>socket.connected : <span class=\"property\">" + socket.connected + "</span></li>";
+						tempContents += "<li>socket.connecting : <span class=\"property\">" + socket.connecting + "</span></li>";
+						tempContents += "<li>socket.host : <span class=\"property\">" + socket.host + "</span></li>";
+						tempContents += "<li>socket.options.connectTimeout : <span class=\"property\">" + socket.options.connectTimeout + "</span></li>";
+						tempContents += "<li>socket.options.port : <span class=\"property\">" + socket.options.port + "</span></li>";
+						tempContents += "<li>socket.options.rememberTransport : <span class=\"property\">" + socket.options.rememberTransport + "</span></li>";
+						tempContents += "<li>socket.options.resource : <span class=\"property\">" + socket.options.resource + "</span></li>";
+						tempContents += "<li>socket.options.secure : <span class=\"property\">" + socket.options.secure + "</span></li>";
+						tempContents += "<li>socket.transport.type : <span class=\"property\">" + socket.transport.type + "</span></li>";
+						
+						document.getElementById('client-property-list').innerHTML = tempContents;
+					}
+					
+					var connectToServer = function() {
+						if (!socket.connected) {
+							socket.connect();
+							socket.on('connect', function(){
+							   document.getElementById('client-log').innerHTML = "Connected!!";
+							});
+						}
+					}
+					
+					var disconnectToServer = function() {
+						if (socket.connected) {
+							socket.disconnect();
+							socket.on('disconnect', function(){
+							   document.getElementById('client-log').innerHTML = "Disconnected!!";
+							});
+						}
+					}
+					
+					var clearPropertyList = function() {
+						document.getElementById('client-property-list').innerHTML = "";
+					}
+				</script>
+				
             </section>
           </div>
 		  
@@ -744,25 +814,30 @@
                 <h1>How to use : Server</h1>
             </header>
             
-            <section class="middle emphasis">
-                <pre>&lt;script src="http://cdn.socket.io/stable/socket.io.js"&gt;&lt;/script&gt;<br />or<br />&lt;script src="socket.io/socket.io.js"&gt;&lt;/script&gt;</pre>
-                
+            <section class="emphasis">
 				<pre>
-					<b>var http = require("http"),
-					       io = require("./path/to/socket.io"),
-					       server = http.createServer(function(req, res) {});
-					   server.listen(8080, null);
+<b>var http = require("http"),</b>
+    <b>io = require("./path/to/socket.io"),</b>
+    <b>server = http.createServer(function(req, res) {});</b>
+
+<b>server.listen(8080, null);</b> <span style="color:Green">// Establishes a HTTP Server</span>
 					
-					   var socket = io.listen(server);
-					   socket.on("connection", function(client) {
-					       client.on("message", function(msg) {
-					           client.send({ msg: msg });
-					  		   client.broadcast({ msg: "broadcasted" });
-					       });
-					       client.on("disconnect", function() {
-					       });
-					   });</b>
+<b>var socket = io.listen(server);</b> <span style="color:Green">// Socket.IO connecto to HTTP Server</span>
+
+<b>socket.on("connection", function(client) {</b> <span style="color:Green">// regist listener for connected</span>
+
+    <b>client.on("message", function(msg) {</b><span style="color:Green">//regist listener for receiving a message</span>
+        <b>client.send({ msg: msg });</b> <span style="color:Green">// Sends a message to the client</span>
+        <b>client.broadcast({ msg: msg });</b> <span style="color:Green">// Sends a message to all other clients.</span>
+    <b>});</b>
+	
+    <b>client.on("disconnect", function() { });</b> <span style="color:Green">// regist listener for disconnected</span>
+<b>});</b>
 				</pre>
+				<br/>
+				<h2>
+					Provide "socket.io/socket.io.js" automatically<br />
+				</h2>
             </section>
           </div>
 		  
@@ -771,7 +846,7 @@
                 <h1>Communication with Server</h1>
             </header>
             
-            <section class="middle emphasis">
+            <section class="emphasis">
             	<p>Client Code</p>
                 <pre>socket.send("Hi!!");</pre>
             	<p>Server Code</p>
