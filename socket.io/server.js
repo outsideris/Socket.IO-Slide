@@ -10,7 +10,6 @@ var http = require("http"),
 server = http.createServer(function (req, res) {
 
     var uri = url.parse(req.url).pathname;
-    sys.debug(uri);
 	
     switch (uri) {
         case '/':
@@ -25,7 +24,6 @@ server = http.createServer(function (req, res) {
             break;
         default:
 			var filename = path.join(process.cwd(), "../" + uri);
-			sys.debug(filename); 
 			path.exists(filename, function(exists) {  
 		        if(!exists) {  
 					res.writeHead(404, {"Content-Type": "text/plain"});
