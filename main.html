@@ -1144,7 +1144,7 @@ socket.on('message', function(msg){</b> <span style="color:Green">// regist list
           doc.addEventListener('touchend', 
               function(e) { _t.handleTouchEnd(e); }, false);
           window.addEventListener('popstate', 
-              function(e) { _t.go(e.state); }, false);
+              function(e) { if (e.state) { _t.go(e.state); } }, false);
           this._update();          
         };
  
@@ -1154,7 +1154,7 @@ socket.on('message', function(msg){</b> <span style="color:Green">// regist list
             document.querySelector('#presentation-counter').innerText = this.current;
             if (history.pushState) {
               if (!dontPush) {
-                history.pushState(this.current, 'Slide ' + this.current, '#slide' + this.current);
+                history.replaceState(this.current, 'Slide ' + this.current, '#slide' + this.current);
               }
             } else {
               window.location.hash = 'slide' + this.current;
@@ -1178,9 +1178,6 @@ socket.on('message', function(msg){</b> <span style="color:Green">// regist list
             this._update();
           },
           go: function(num) {
-            if (history.pushState && this.current != num) {
-              history.replaceState(this.current, 'Slide ' + this.current, '#slide' + this.current);
-            }
             this.current = num;
             this._update(true);
           },
@@ -1247,6 +1244,7 @@ socket.on('message', function(msg){</b> <span style="color:Green">// regist list
         };
  
         // Initialize
+		console.log("start");
         var slideshow = new SlideShow(query('.slide'));
       })();
     </script>
@@ -1271,5 +1269,4 @@ socket.on('message', function(msg){</b> <span style="color:Green">// regist list
     </script>
           
         </body>
-      </html>/bin/bash: -c: line 0: syntax error near unexpected token `newline' /bin/bash: -c: line 0: `
-      <!DOCTYPE html>'
+      </html>
