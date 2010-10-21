@@ -61,7 +61,6 @@ socket.on("connection", function(client) {
 	  }
     });
     client.on("disconnect", function() {
-      sys.debug("disconnect");
     });
 });
 
