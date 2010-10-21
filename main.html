@@ -657,7 +657,7 @@
             <section class="middle emphasis bulleted">
               <h2>Socket.IO abstract realtime techniques<br />like jQuery does for Ajax</h2>
               <ul>
-                <li><a href="http://www.learnboost.com" target="_blank">LearnBoost</a> made</li>
+                <li>created by <a href="http://www.learnboost.com" target="_blank">LearnBoost</a></li>
                 <li><a href="http://socket.io/" target="_blank">Socket.IO Official Site</a></li>
                 <li><a href="http://github.com/LearnBoost/Socket.IO" target="_blank">Socket.IO-client Repository</a></li>
                 <li><a href="http://github.com/LearnBoost/Socket.IO-node" target="_blank">Socket.IO-server Repository</a></li>
@@ -712,6 +712,12 @@
               </ul>
             </section>
           </div>
+		  
+		  <div class="slide">
+            <section class="middle emphasis">
+              <h1>Just One Source for All Transports</h1>
+            </section>
+          </div>
 
           <div class = "slide">
             <header>
@@ -751,7 +757,7 @@ socket.on('message', function(msg){</b> <span style="color:Green">// regist list
 		        }
 		    </style>
             <header>
-                <h1>io.Socket() Object property</h1>
+                <h1>io.Socket() Object Properties</h1>
             </header>
 
             <section class="middle emphasis bulleted-small">
@@ -848,66 +854,150 @@ socket.on('message', function(msg){</b> <span style="color:Green">// regist list
             
             <section class="emphasis">
             	<p>Client Code</p>
-                <pre>socket.send("Hi!!");</pre>
-            	<p>Server Code</p>
                 <pre>
-                	client.on("message", function(msg) {
-					  client.send({ msg: msg });
-				    });
-                </pre>
+if (!socket._events.message) {
+  <b>socket.on('message', function(msg){</b>
+    if (msg.type === "send") { 
+      <b>document.getElementById("send-log").innerHTML = msg.text;</b> 
+    }
+  <b>});</b>
+}
+var text = document.getElementById("send-text").value;
+<b>socket.send({"text":text, "type":"send"});</b></pre>
+				<p>Server Code</p>
+                <pre>
+<b>client.on("message", function(msg) {</b>
+  if (msg.type === "send") {
+    <b>client.send( { "text": msg.text, "type":"send" } );</b>
+  }
+<b>});</b></pre>
 				<div class="center">
-	                <div id="send-log">
-	                </div>
+	                <h2 id="send-log">
+	                </h2>
 					<input id="send-text" type="text" value="" /><input type="button" value="Send" onclick="sendToServer();" />
-	            </div>
-            	<p>Client Code</p>
-                <pre>socket.send("Hi!!");</pre>
-            	<p>Server Code</p>
-                <pre>
-                	client.on("message", function(msg) {
-					  client.broadcast({ msg: "broadcasted" });
-				    });
-                </pre>
-				<div class="center">
-	                <div id="broad-log">
-	                </div>
-	                <input id="broad-text" type="text" value="" /><input type="button" value="Send" onclick="sendForBroadCase();" />
 	            </div>
 				
 				<script>
 					var sendToServer = function() {
+						if (!socket.connected) {
+							socket.connect();
+						}
+						if (!socket._events.message) {
+							socket.on('message', function(msg){
+								if (msg.type === "send") {
+									document.getElementById("send-log").innerHTML = msg.text;
+								} else if (msg.type === "broad") {
+									document.getElementById("broad-log").innerHTML = msg.text;
+								}
+							});
+						}
 						
+						var text = document.getElementById("send-text").value;
+						socket.send({"text":text, "type":"send"});
 					}
-					
+				</script>
+            </section>
+          </div>
+		  
+		  <div class = "slide">
+            <header>
+                <h1>Broadcast via Server</h1>
+            </header>
+            
+            <section class="emphasis">
+            	<p>Client Code</p>
+                <pre>
+if (!socket._events.message) {
+  <b>socket.on('message', function(msg){</b>
+    if (msg.type === "broad") { 
+      <b>document.getElementById("broad-log").innerHTML = msg.text;</b> 
+    }
+  <b>});</b>
+}
+var text = document.getElementById("broad-text").value;
+<b>socket.send({"text":text, "type":"broad"});</b></pre>
+
+				<p>Server Code</p>
+                <pre>
+<b>client.on("message", function(msg) {</b>
+  if (msg.type === "broad") {
+    <b>client.broadcast( { "text": msg.text, "type":"broad" } );</b>
+  }
+<b>});</b></pre>
+				<div class="center">
+	                <h2 id="broad-log">
+	                </h2>
+	                <input id="broad-text" type="text" value="" /><input type="button" value="Send" onclick="sendForBroadCase();" />
+	            </div>
+				
+				<script>
 					var sendForBroadCase = function() {
+						if (!socket.connected) {
+							socket.connect();
+						}
+						if (!socket._events.message) {
+							socket.on('message', function(msg){
+								if (msg.type === "send") {
+									document.getElementById("send-log").innerHTML = msg.text;
+								} else if (msg.type === "broad") {
+									document.getElementById("broad-log").innerHTML = msg.text;
+								}
+							});
+						}
 						
+						var text = document.getElementById("broad-text").value;
+						socket.send({"text":text, "type":"broad"});
 					}
 				</script>
             </section>
           </div>
 		  
 		  <div class="slide">
-            <section class="middle emphasis bulleted">
-			  <h1>Thank You!</h1>
-			  <p>All source code for this Slide is in <a href="http://github.com/outsideris/Socket.IO-Slide" target="_blank">GitHub</a></p>
-              <h2><a href="http://blog.outsider.ne.kr" target="_blank">Outsider</a></h2>
-              <h2>outsideris@gmail.com</h2>
-              <h2>@Outsider__</h2>
-            </section>
-          </div>
-          
-          <div class="slide">
-            <section class="bulleted">
+		  	<style>
+		    	section.bulleted-resource ul li {
+		          margin-top: 15px;
+		          font-size: 40px;
+		          letter-spacing: -1px;
+				  list-style: square;
+				  text-align: left;
+				  margin-left: 70px;
+		        }
+		    </style>
+            <section class="bulleted-resource">
               <header>
                 <h1>Resources</h1>
               </header>
+			  <br/><br/>
               <ul>
-                <li><a href="http://html5rocks.com" target="_blank">html5rocks.com</a></li>
-                <li><a href="http://html5readiness.com/" target="_blank">html5readiness.com</a></li>
-                <li><a href="http://diveintohtml5.org/" target="_blank">diveintohtml5.org</a></li>
-                <li><a href="http://html5doctor.com" target="_blank">html5doctor.com</a></li>
-                <li><a href="http://html5boilerplate.com" target="_blank">html5boilerplate.com</a></li>
+                <li><a href="http://socket.io/" target="_blank">Socket.IO Official Site</a></li>
+                <li><a href="http://github.com/LearnBoost/Socket.IO" target="_blank">Socket.IO-client Repository</a></li>
+                <li><a href="http://github.com/LearnBoost/Socket.IO-node" target="_blank">Socket.IO-server Repository</a></li>
+                <li><a href="http://howtonode.org/websockets-socketio" target="_blank">Websockets everywhere with Socket.IO</a></li>
               </ul>
+            </section>
+          </div>
+		  
+		  <div class="slide">
+		  	<style>
+		  		section .contact {
+		  			margin-top: 150px;
+		  		}
+		  		section .contact h3 {
+					font-size: 30px;
+					margin-bottom: -50px;
+					text-align: right;
+					margin-right: 100px;
+				}
+		  	</style>
+            <section class="middle emphasis">
+			  <h1>Thank You!</h1>
+			  <h2>All source codes for this Slide are in <a href="http://github.com/outsideris/Socket.IO-Slide" target="_blank">GitHub</a></h2>
+			  <div class="contact">
+	              <h3><a href="http://blog.outsider.ne.kr" target="_blank">Outsider</a></h3>
+	              <h3><a href="http://blog.outsider.ne.kr" target="_blank">http://blog.outsider.ne.kr</a></h3>
+	              <h3>outsideris@gmail.com</h3>
+	              <h3><a href="http://twitter.com/outsider__" target="_blank">@Outsider__</a></h3>
+			  </div>
             </section>
           </div>
           
@@ -1244,7 +1334,6 @@ socket.on('message', function(msg){</b> <span style="color:Green">// regist list
         };
  
         // Initialize
-		console.log("start");
         var slideshow = new SlideShow(query('.slide'));
       })();
     </script>

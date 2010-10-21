@@ -53,11 +53,12 @@ server.listen(PORT, HOST);
 var socket = io.listen(server);
 
 socket.on("connection", function(client) {
-    sys.debug("socket connected");
     client.on("message", function(msg) {
-      sys.debug("message is received : " + msg);
-	  client.send({ msg: msg });
-	  client.broadcast({ msg: "broadcasted" });
+      if (msg.type === "send") {
+	      client.send( { "text": msg.text, "type":"send" } );
+	  } else if (msg.type === "broad") {
+	  	  client.broadcast( { "text": msg.text, "type":"broad" } );
+	  }
     });
     client.on("disconnect", function() {
       sys.debug("disconnect");
