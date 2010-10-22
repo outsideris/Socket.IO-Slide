@@ -8,8 +8,7 @@ HTML5 Slide for Socket.IO
 - Socket.IO (tested in 0.5.3)
 
 ## How to use
-- run node server
-
+- run node server:
 
 	node socket.io/server.js
 
