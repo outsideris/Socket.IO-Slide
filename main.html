@@ -1240,7 +1240,7 @@ var text = document.getElementById("broad-text").value;
  
         SlideShow.prototype = {
           _slides: [],
-          _update: function(dontPush) {
+          _update: function(dontPush, dontSync) {
             document.querySelector('#presentation-counter').innerText = this.current;
             if (history.pushState) {
               if (!dontPush) {
@@ -1254,6 +1254,10 @@ var text = document.getElementById("broad-text").value;
                 this._slides[x-4].setState(Math.max(0, x-this.current));
               }
             }
+			// Socket.IO for sync slide
+			if (!dontSync) {
+				socketforSlideSync.send({"slide": this.current});
+			}			
           },
  
           current: 0,
@@ -1267,9 +1271,9 @@ var text = document.getElementById("broad-text").value;
             this.current = Math.max(this.current-1, 1);
             this._update();
           },
-          go: function(num) {
+          go: function(num, dontSync) {
             this.current = num;
-            this._update(true);
+            this._update(true, dontSync);
           },
  
           _notesOn: false,
@@ -1332,6 +1336,14 @@ var text = document.getElementById("broad-text").value;
             }
           },
         };
+		
+		// initialize Socket.IO for sync slide
+		var socketforSlideSync = new io.Socket(null);
+		socketforSlideSync.connect();
+
+		socketforSlideSync.on('message', function(msg){
+			slideshow.go(msg.slide, true);
+		});
  
         // Initialize
         var slideshow = new SlideShow(query('.slide'));

@@ -54,6 +54,9 @@ var socket = io.listen(server);
 
 socket.on("connection", function(client) {
     client.on("message", function(msg) {
+	  if (msg.slide) {
+		client.broadcast(msg);	  	
+	  }
       if (msg.type === "send") {
 	      client.send( { "text": msg.text, "type":"send" } );
 	  } else if (msg.type === "broad") {
@@ -61,6 +64,7 @@ socket.on("connection", function(client) {
 	  }
     });
     client.on("disconnect", function() {
+      
     });
 });
 
