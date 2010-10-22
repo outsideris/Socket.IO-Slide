@@ -927,11 +927,11 @@ var text = document.getElementById("broad-text").value;
 				<div class="center">
 	                <h2 id="broad-log">
 	                </h2>
-	                <input id="broad-text" type="text" value="" /><input type="button" value="Send" onclick="sendForBroadCase();" />
+	                <input id="broad-text" type="text" value="" /><input type="button" value="Send" onclick="sendForBroadCast();" />
 	            </div>
 				
 				<script>
-					var sendForBroadCase = function() {
+					var sendForBroadCast = function() {
 						if (!socket.connected) {
 							socket.connect();
 						}
@@ -991,7 +991,7 @@ var text = document.getElementById("broad-text").value;
 		  	</style>
             <section class="middle emphasis">
 			  <h1>Thank You!</h1>
-			  <h2>All source codes for this Slide are in <a href="http://github.com/outsideris/Socket.IO-Slide" target="_blank">GitHub</a></h2>
+			  <h2>All source codes of Slide are in <a href="http://github.com/outsideris/Socket.IO-Slide" target="_blank">GitHub</a></h2>
 			  <div class="contact">
 	              <h3><a href="http://blog.outsider.ne.kr" target="_blank">Outsider</a></h3>
 	              <h3><a href="http://blog.outsider.ne.kr" target="_blank">http://blog.outsider.ne.kr</a></h3>
@@ -1342,7 +1342,9 @@ var text = document.getElementById("broad-text").value;
 		socketforSlideSync.connect();
 
 		socketforSlideSync.on('message', function(msg){
-			slideshow.go(msg.slide, true);
+			if (msg.slide) {
+				slideshow.go(msg.slide, true);
+			}
 		});
  
         // Initialize
