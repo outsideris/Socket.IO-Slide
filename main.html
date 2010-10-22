@@ -1255,8 +1255,8 @@ var text = document.getElementById("broad-text").value;
               }
             }
 			// Socket.IO for sync slide
-			if (!dontSync) {
-				socketforSlideSync.send({"slide": this.current});
+			if (!dontSync && _id) {
+				socketforSlideSync.send({"slide": this.current, "id":_id});
 			}			
           },
  
@@ -1342,10 +1342,26 @@ var text = document.getElementById("broad-text").value;
 		socketforSlideSync.connect();
 
 		socketforSlideSync.on('message', function(msg){
-			if (msg.slide) {
+			if (msg.slide && msg.id === _id) {
 				slideshow.go(msg.slide, true);
 			}
 		});
+		
+		var parseQueryParams = function(queryString) {
+			var match = queryString.match(/([^?#]*)(#.*)?$/);
+    		if (!match) return null;
+			var queryParams = match[1].split("&");
+			var id;
+
+		    for (var idx in queryParams) {
+				var param = queryParams[idx];
+				if (param.split("=")[0] === "id") {
+					id = param.split("=")[1]; 
+				}
+			}
+			return id;
+		}
+		var _id = parseQueryParams(window.location.search);
  
         // Initialize
         var slideshow = new SlideShow(query('.slide'));
