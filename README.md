@@ -8,11 +8,12 @@ HTML5 Slide for Socket.IO
 * Socket.IO (tested in 0.5.3)
 
 ## How to use
-* run node server
+* run node server(you have to run server.js in socket.io directory)
 
-	node socket.io/server.js
+    cd socket.io/
+	node server.js
 
-* connect at web browser - http://localhost:8124/
+* connect at web browser - `http://localhost:8124/`
 
 ### Explain
 
