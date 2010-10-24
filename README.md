@@ -11,7 +11,7 @@ HTML5 Slide for Socket.IO
 * run node server(you have to run server.js in socket.io directory)
 
     cd socket.io/
-	node server.js
+	node socketio-slide.js
 
 * connect at web browser - `http://localhost:8124/`
 
