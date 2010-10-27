@@ -31,3 +31,7 @@ another is for sync page of slide with others. page sync is operated only when i
 * at `io.Socket() Object Properties` page, you have to connect to server at all browser.
 * at `Communication with Server` page, demo for send(). your message will be received to your browser not other.
 * at `Broadcast via server` page, demo for broadcast(). your message will be broadcase to other browser(if those are connected), not your browser.
+
+### Demo
+
+[Socket.IO : Real-Time Web for Everywhere](http://sideeffect.kr:8001/)
