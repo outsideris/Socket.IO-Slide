@@ -34,4 +34,4 @@ another is for sync page of slide with others. page sync is operated only when i
 
 ### Demo
 
-[Socket.IO : Real-Time Web for Everywhere](http://sideeffect.kr:8001/)
+* [Socket.IO : Real-Time Web for Everywhere](http://sideeffect.kr:8001/)
