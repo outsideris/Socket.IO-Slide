@@ -1,11 +1,11 @@
 var http = require("http"),
-    sys = require("sys"),
+    util = require("util"),
     url = require("url"),
     fs = require("fs"),
-	path = require("path"),
+	  path = require("path"),
     io = require("socket.io"),
     PORT = 8124,
-    HOST = null,
+    HOST = null;
 
 server = http.createServer(function (req, res) {
 
@@ -14,16 +14,13 @@ server = http.createServer(function (req, res) {
     switch (uri) {
         case '/':
         case '/main.html':
-            staticHandler("../main.html", req, res);
+            staticHandler("./main.html", req, res);
             break;
         case '/main.js':
-            staticHandler("../main.js", req, res);
-            break;
-        case '/test.html':
-            staticHandler("../test.html", req, res);
+            staticHandler("./main.js", req, res);
             break;
         default:
-			var filename = path.join(process.cwd(), "../" + uri);
+			var filename = path.join(process.cwd(), "./" + uri);
 			path.exists(filename, function(exists) {  
 		        if(!exists) {  
 					res.writeHead(404, {"Content-Type": "text/plain"});
@@ -50,21 +47,18 @@ server = http.createServer(function (req, res) {
 server.listen(PORT, HOST);
 
 
-var socket = io.listen(server);
+io = io.listen(server);
 
-socket.on("connection", function(client) {
+io.sockets.on("connection", function(client) {
     client.on("message", function(msg) {
-	  if (msg.slide) {
-		client.broadcast(msg);	  	
-	  }
+      if (msg.slide) {
+        client.broadcast.json.send(msg);	  	
+      }
       if (msg.type === "send") {
-	      client.send( { "text": msg.text, "type":"send" } );
-	  } else if (msg.type === "broad") {
-	  	  client.broadcast( { "text": msg.text, "type":"broad" } );
-	  }
-    });
-    client.on("disconnect", function() {
-      
+        client.json.send( { "text": msg.text, "type":"send" } );
+      } else if (msg.type === "broad") {
+        client.broadcast.json.send( { "text": msg.text, "type":"broad" } );
+      }
     });
 });
 
@@ -73,7 +67,7 @@ var staticHandler = function(filename, req, res) {
 	
     fs.readFile(filename, function(err, data) {
 	    if (err) {
-		    sys.debug('Error loading file ' + filename);
+		    util.debug('Error loading file ' + filename);
 	    } else {
 	    	body = data;
 	    }
@@ -85,5 +79,3 @@ var staticHandler = function(filename, req, res) {
 		res.end();
 	});
 };
-
-sys.debug("Server running at http://localhost:" + PORT);

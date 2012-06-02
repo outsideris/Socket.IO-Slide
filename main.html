@@ -617,6 +617,7 @@
             <section class="middle emphasis bulleted">
               <ul>
                 <li>Long Polling</li>
+                <li>Streaming</li>
                 <li>Forever Iframe</li>
                 <li>Web Socket</li>
                 <li>etc...</li>
@@ -685,10 +686,10 @@
               <ul>
                 <li>Web Socket</li>
                 <li>Adobe Flash Socket</li>
-                <li>ActiveX HTMLFile (IE)</li>
-                <li>XHR with Multipart Encoding</li>
-                <li>XHR with Long-Polling</li>
+                <li>Ajax long polling</li>
+                <li>Ajax multipart streaming</li>
                 <li>JSONP Polling (for cross-domain)</li>
+                <li>Forever Iframe</li>
               </ul>
             </section>
           </div>
@@ -700,11 +701,11 @@
             
             <section class="middle emphasis bulleted-many">
               <ul>
-                <li>Internet Explorer 5.5 ~ 8</li>
-                <li>Safari 3 ~ 5</li>
-                <li>Google Chrome 4 ~ 6</li>
-                <li>Firefox 3 ~ 4</li>
-                <li>Opera 10.61</li>
+                <li>Internet Explorer 5.5+</li>
+                <li>Safari 3+</li>
+                <li>Google Chrome 4+</li>
+                <li>Firefox 3+</li>
+                <li>Opera 10.61+</li>
                 <li>iPhone Safari</li>
                 <li>iPad Safari</li>
                 <li>Android Webkit</li>
@@ -719,11 +720,9 @@
             </header>
             
             <section class="middle emphasis">
-                <h2>1. Install node.js (v0.1.1.03+)</h2>
+                <h2>1. Install node.js (v0.4.0+)</h2>
 				<h2>2. Install Socket.IO</h2>
-                <h3>git clone git://github.com/LearnBoost/Socket.IO-node.git socket.io-node --recursive</h3>
-				<h3>or</h3>
-                <h3>npm install socket.io<br/>(if use npm. but not installed correctly in socket.io 0.5.3)</h3>
+                <h3>npm install socket.io<br/>(using socket.io 0.9.6)</h3>
             </section>
           </div>
 		  
@@ -739,11 +738,10 @@
             </header>
             
             <section class="emphasis">
-                <pre><b>&lt;script src="http://cdn.socket.io/stable/socket.io.js"&gt;&lt;/script&gt;</b><br /><br />or<br /><br /><b>&lt;script src="socket.io/socket.io.js"&gt;&lt;/script&gt;</b></pre>
+                <pre><b>&lt;script src="socket.io/socket.io.js"&gt;&lt;/script&gt;</b></pre>
                 <br />
 				<pre>
-<b>var socket = new io.Socket(null);</b> <span style="color:Green">// null is localhost</span>
-<b>socket.connect();</b> <span style="color:Green">// Establishes a connection</span><br/>
+<b>var socket = io.connect();</b> <span style="color:Green">// Establishes a connection to host</span>
 <b>socket.on('connect', function(){</b> <span style="color:Green">// regist listener for connected</span>
     <span style="color:Green">// connected!</span>
 <b>});
@@ -778,8 +776,6 @@ socket.on('message', function(msg){</b> <span style="color:Green">// regist list
             <section class="middle emphasis bulleted-small">
             	<button id="client-show" onclick="showProperty();">Show</button>
             	<button id="client-clear" onclick="clearPropertyList();">ClearList</button>
-            	<button id="client-connect" onclick="connectToServer();">Connect</button>
-            	<button id="client-disconnect" onclick="disconnectToServer();">Disconnect</button>
 				
 				<span id="client-log" class="stroke"></span>
 				
@@ -788,38 +784,18 @@ socket.on('message', function(msg){</b> <span style="color:Green">// regist list
 				
 				<script src="socket.io/socket.io.js"></script>
 				<script>
-					var socket = new io.Socket(null);
 					var showProperty = function() {
 						var tempContents = "";
-						tempContents += "<li>socket.connected : <span class=\"property\">" + socket.connected + "</span></li>";
-						tempContents += "<li>socket.connecting : <span class=\"property\">" + socket.connecting + "</span></li>";
-						tempContents += "<li>socket.host : <span class=\"property\">" + socket.host + "</span></li>";
-						tempContents += "<li>socket.options.connectTimeout : <span class=\"property\">" + socket.options.connectTimeout + "</span></li>";
-						tempContents += "<li>socket.options.port : <span class=\"property\">" + socket.options.port + "</span></li>";
-						tempContents += "<li>socket.options.rememberTransport : <span class=\"property\">" + socket.options.rememberTransport + "</span></li>";
-						tempContents += "<li>socket.options.resource : <span class=\"property\">" + socket.options.resource + "</span></li>";
-						tempContents += "<li>socket.options.secure : <span class=\"property\">" + socket.options.secure + "</span></li>";
-						tempContents += "<li>socket.transport.type : <span class=\"property\">" + socket.transport.type + "</span></li>";
+						tempContents += "<li>socket.connected : <span class=\"property\">" + socket.socket.connected + "</span></li>";
+						tempContents += "<li>socket.connecting : <span class=\"property\">" + socket.socket.connecting + "</span></li>";
+						tempContents += "<li>socket.options.host : <span class=\"property\">" + socket.socket.options.host + "</span></li>";
+						tempContents += "<li>socket.options['connect timeout'] : <span class=\"property\">" + socket.socket.options['connect timeout'] + "</span></li>";
+						tempContents += "<li>socket.options.port : <span class=\"property\">" + socket.socket.options.port + "</span></li>";
+						tempContents += "<li>socket.transport.name : <span class=\"property\">" + socket.socket.transport.name + "</span></li>";
+						tempContents += "<li>socket.options.resource : <span class=\"property\">" + socket.socket.options.resource + "</span></li>";
+						tempContents += "<li>socket.options.secure : <span class=\"property\">" + socket.socket.options.secure + "</span></li>";
 						
 						document.getElementById('client-property-list').innerHTML = tempContents;
-					}
-					
-					var connectToServer = function() {
-						if (!socket.connected) {
-							socket.connect();
-							socket.on('connect', function(){
-							   document.getElementById('client-log').innerHTML = "Connected!!";
-							});
-						}
-					}
-					
-					var disconnectToServer = function() {
-						if (socket.connected) {
-							socket.disconnect();
-							socket.on('disconnect', function(){
-							   document.getElementById('client-log').innerHTML = "Disconnected!!";
-							});
-						}
 					}
 					
 					var clearPropertyList = function() {
@@ -838,7 +814,7 @@ socket.on('message', function(msg){</b> <span style="color:Green">// regist list
             <section class="emphasis">
 				<pre>
 <b>var http = require("http"),</b>
-    <b>io = require("./path/to/socket.io"),</b>
+    <b>io = require("socket.io"),</b>
     <b>server = http.createServer(function(req, res) {});</b>
 
 <b>server.listen(8080, null);</b> <span style="color:Green">// Establishes a HTTP Server</span>
@@ -848,8 +824,8 @@ socket.on('message', function(msg){</b> <span style="color:Green">// regist list
 <b>socket.on("connection", function(client) {</b> <span style="color:Green">// regist listener for connected</span>
 
     <b>client.on("message", function(msg) {</b><span style="color:Green">//regist listener for receiving a message</span>
-        <b>client.send({ msg: msg });</b> <span style="color:Green">// Sends a message to the client</span>
-        <b>client.broadcast({ msg: msg });</b> <span style="color:Green">// Sends a message to all other clients.</span>
+        <b>client.json.send({ msg: msg });</b> <span style="color:Green">// Sends a message to the client</span>
+        <b>client.broadcast.json.send({ msg: msg });</b> <span style="color:Green">// Sends a message to all other clients.</span>
     <b>});</b>
 	
     <b>client.on("disconnect", function() { });</b> <span style="color:Green">// regist listener for disconnected</span>
@@ -870,20 +846,19 @@ socket.on('message', function(msg){</b> <span style="color:Green">// regist list
             <section class="emphasis">
             	<p>Client Code</p>
                 <pre>
-if (!socket._events.message) {
-  <b>socket.on('message', function(msg){</b>
-    if (msg.type === "send") { 
-      <b>document.getElementById("send-log").innerHTML = msg.text;</b> 
-    }
-  <b>});</b>
-}
+<b>socket.on('message', function(msg){</b>
+  if (msg.type === "send") { 
+    <b>document.getElementById("send-log").innerHTML = msg.text;</b> 
+  }
+<b>});</b>
+
 var text = document.getElementById("send-text").value;
-<b>socket.send({"text":text, "type":"send"});</b></pre>
+<b>socket.json.send({"text":text, "type":"send"});</b></pre>
 				<p>Server Code</p>
                 <pre>
 <b>client.on("message", function(msg) {</b>
   if (msg.type === "send") {
-    <b>client.send( { "text": msg.text, "type":"send" } );</b>
+    <b>client.json.send( { "text": msg.text, "type":"send" } );</b>
   }
 <b>});</b></pre>
 				<div class="center">
@@ -893,23 +868,10 @@ var text = document.getElementById("send-text").value;
 	            </div>
 				
 				<script>
-					var sendToServer = function() {
-						if (!socket.connected) {
-							socket.connect();
-						}
-						if (!socket._events.message) {
-							socket.on('message', function(msg){
-								if (msg.type === "send") {
-									document.getElementById("send-log").innerHTML = msg.text;
-								} else if (msg.type === "broad") {
-									document.getElementById("broad-log").innerHTML = msg.text;
-								}
-							});
-						}
-						
-						var text = document.getElementById("send-text").value;
-						socket.send({"text":text, "type":"send"});
-					}
+          	var sendToServer = function() {
+              var text = document.getElementById("send-text").value;
+              socket.json.send({"text":text, "type":"send"});
+            }
 				</script>
             </section>
           </div>
@@ -922,21 +884,20 @@ var text = document.getElementById("send-text").value;
             <section class="emphasis">
             	<p>Client Code</p>
                 <pre>
-if (!socket._events.message) {
-  <b>socket.on('message', function(msg){</b>
-    if (msg.type === "broad") { 
-      <b>document.getElementById("broad-log").innerHTML = msg.text;</b> 
-    }
-  <b>});</b>
-}
+<b>socket.on('message', function(msg){</b>
+  if (msg.type === "broad") { 
+    <b>document.getElementById("broad-log").innerHTML = msg.text;</b> 
+  }
+<b>});</b>
+
 var text = document.getElementById("broad-text").value;
-<b>socket.send({"text":text, "type":"broad"});</b></pre>
+<b>socket.json.send({"text":text, "type":"broad"});</b></pre>
 
 				<p>Server Code</p>
                 <pre>
 <b>client.on("message", function(msg) {</b>
   if (msg.type === "broad") {
-    <b>client.broadcast( { "text": msg.text, "type":"broad" } );</b>
+    <b>client.broadcast.json.send( { "text": msg.text, "type":"broad" } );</b>
   }
 <b>});</b></pre>
 				<div class="center">
@@ -947,21 +908,8 @@ var text = document.getElementById("broad-text").value;
 				
 				<script>
 					var sendForBroadCast = function() {
-						if (!socket.connected) {
-							socket.connect();
-						}
-						if (!socket._events.message) {
-							socket.on('message', function(msg){
-								if (msg.type === "send") {
-									document.getElementById("send-log").innerHTML = msg.text;
-								} else if (msg.type === "broad") {
-									document.getElementById("broad-log").innerHTML = msg.text;
-								}
-							});
-						}
-						
 						var text = document.getElementById("broad-text").value;
-						socket.send({"text":text, "type":"broad"});
+						socket.json.send({"text":text, "type":"broad"});
 					}
 				</script>
             </section>
@@ -1011,7 +959,7 @@ var text = document.getElementById("broad-text").value;
 	              <h3><a href="http://blog.outsider.ne.kr" target="_blank">Outsider</a></h3>
 	              <h3><a href="http://blog.outsider.ne.kr" target="_blank">http://blog.outsider.ne.kr</a></h3>
 	              <h3>outsideris@gmail.com</h3>
-	              <h3><a href="http://twitter.com/outsider__" target="_blank">@Outsider__</a></h3>
+	              <h3><a href="http://twitter.com/outsideris" target="_blank">@Outsideris</a></h3>
 			  </div>
             </section>
           </div>
@@ -1269,10 +1217,10 @@ var text = document.getElementById("broad-text").value;
                 this._slides[x-4].setState(Math.max(0, x-this.current));
               }
             }
-			// Socket.IO for sync slide
-			if (!dontSync && _id) {
-				socketforSlideSync.send({"slide": this.current, "id":_id});
-			}			
+            // Socket.IO for sync slide
+            if (!dontSync && _id) {
+              socket.json.send({"slide": this.current, "id":_id});
+            }			
           },
  
           current: 0,
@@ -1353,13 +1301,17 @@ var text = document.getElementById("broad-text").value;
         };
 		
 		// initialize Socket.IO for sync slide
-		var socketforSlideSync = new io.Socket(null);
-		socketforSlideSync.connect();
+		socket = io.connect();
 
-		socketforSlideSync.on('message', function(msg){
+		socket.on('message', function(msg){
 			if (msg.slide && msg.id === _id) {
 				slideshow.go(msg.slide, true);
 			}
+      if (msg.type === "send") {
+          document.getElementById("send-log").innerHTML = msg.text;
+      } else if (msg.type === "broad") {
+          document.getElementById("broad-log").innerHTML = msg.text;
+      }
 		});
 		
 		var parseQueryParams = function(queryString) {
@@ -1393,7 +1345,7 @@ var text = document.getElementById("broad-text").value;
     <script>
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-1316180-4']);
-	    //_gaq.push(['_setDomainName', '.sideeffect.kr']);
+	    _gaq.push(['_setDomainName', '.sideeffect.kr']);
         _gaq.push(['_trackPageview']);
 
         (function () {

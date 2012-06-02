@@ -1,0 +1,15 @@
+{
+  "author": "Outsider <outsideris@gmail.com> (http://sideeffect.kr)",
+  "name": "socketio-slide",
+  "description": "HTML slide using socket.io",
+  "version": "0.0.1",
+  "main": "socketio-slide.js",
+  "dependencies": {
+    "socket.io": "~0.9.6"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
